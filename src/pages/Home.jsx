@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import adminLoginApi from '../api/AuthenticationAPI';
 
 function Homepage() {
   const navigate = useNavigate();
@@ -10,8 +11,16 @@ function Homepage() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateLogin = async () => 'signin successfully';
+  const validateLogin = async () => {
+    try {
+      const { accessToken } = await adminLoginApi(email, password);
+      localStorage.setItem('metropole4', accessToken);
 
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
   const handleChange = (event) => {
     const { name, value } = event.target;
 
