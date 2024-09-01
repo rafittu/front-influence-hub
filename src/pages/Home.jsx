@@ -1,8 +1,16 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Homepage() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const validateLogin = async () => 'signin successfully';
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -14,7 +22,20 @@ function Homepage() {
     }
   };
 
-  const handleSubmit = async (event) => event;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    const isValid = await validateLogin();
+
+    if (isValid) {
+      navigate('/dashboard');
+    } else {
+      setError(true);
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <main>
@@ -48,6 +69,20 @@ function Homepage() {
                 placeholder="senha"
               />
             </label>
+          </div>
+
+          {error && (
+          <div className="error-msg">
+            <p>e-mail ou senha inválido</p>
+          </div>
+          )}
+
+          <div>
+            <div className="inputs-buttons">
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? 'Entrando...' : 'Entrar'}
+              </button>
+            </div>
           </div>
         </form>
       </section>
