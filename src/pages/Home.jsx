@@ -4,7 +4,15 @@ function Homepage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleChange = (event) => event;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === 'email') {
+      setEmail(value);
+    } else {
+      setPassword(value);
+    }
+  };
 
   const handleSubmit = async (event) => event;
 
