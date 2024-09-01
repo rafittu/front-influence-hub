@@ -58,7 +58,7 @@ function Homepage() {
             <label htmlFor="email">
               <input
                 name="email"
-                id="login"
+                id="email"
                 value={email}
                 onChange={handleChange}
                 type="email"
