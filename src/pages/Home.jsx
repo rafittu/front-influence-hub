@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import adminLoginApi from '../api/AuthenticationAPI';
 
 function Homepage() {
@@ -86,12 +86,14 @@ function Homepage() {
           </div>
           )}
 
-          <div>
-            <div className="inputs-buttons">
-              <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Entrando...' : 'Entrar'}
-              </button>
-            </div>
+          <div className="inputs-buttons">
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Entrando...' : 'Entrar'}
+            </button>
+
+            <Link to="/signup">
+              <button type="button">Cadastrar</button>
+            </Link>
           </div>
         </form>
       </section>
