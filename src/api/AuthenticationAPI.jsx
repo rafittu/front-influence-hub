@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = process.env.REACT_APP_TODO_API_URL || '';
+const baseUrl = process.env.REACT_APP_IH_BASE_API_URL || '';
 
 const adminLoginApi = async (email, password) => {
   try {
