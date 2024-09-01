@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Homepage() {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChange = (event) => event;
 
@@ -25,6 +26,18 @@ function Homepage() {
                 type="email"
                 required
                 placeholder="e-mail"
+              />
+            </label>
+
+            <label htmlFor="password">
+              <input
+                name="password"
+                id="password"
+                value={password}
+                onChange={handleChange}
+                type="password"
+                required
+                placeholder="senha"
               />
             </label>
           </div>
