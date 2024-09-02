@@ -34,10 +34,22 @@ function SignupForm({ toggleForm }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'fullName') { setFullName(value); }
-    if (name === 'email') { setEmail(value); }
-    if (name === 'password') { setPassword(value); }
-    if (name === 'passwordConfirmation') { setPasswordConfirmation(value); }
+    switch (name) {
+      case 'fullName':
+        setFullName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      case 'passwordConfirmation':
+        setPasswordConfirmation(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const validateSignup = async () => 'api call to signup and login';
