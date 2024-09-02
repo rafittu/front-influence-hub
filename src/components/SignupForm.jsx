@@ -11,15 +11,25 @@ function SignupForm({ toggleForm }) {
   const navigate = useNavigate();
   const { setAdminData } = useAdmin();
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+  });
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const {
+    fullName, email, password, passwordConfirmation,
+  } = formData;
+
   const passwordValidation = isPasswordValid(password);
+
+  const handleChange = ({ target: { name, value } }) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const validateSignup = async () => {
     const response = await adminSignupApi(fullName, email, password, passwordConfirmation);
@@ -37,27 +47,6 @@ function SignupForm({ toggleForm }) {
     }
 
     return false;
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case 'fullName':
-        setFullName(value);
-        break;
-      case 'email':
-        setEmail(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      case 'passwordConfirmation':
-        setPasswordConfirmation(value);
-        break;
-      default:
-        break;
-    }
   };
 
   const handleSubmit = async (event) => {
