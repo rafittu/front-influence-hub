@@ -1,0 +1,39 @@
+#homepage-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#homepage-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../public/hp-background.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+}
+
+#brand-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+  max-width: 100%;
+  position: absolute;
+  top: 3%;
+}
+
+#brand-logo img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  max-height: 200px;
+}
