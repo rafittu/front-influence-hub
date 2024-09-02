@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { adminLoginApi } from '../api/AuthenticationAPI';
 
 import '../styles/LoginForm.css';
+import { emailRegex, passwordRegex } from '../utils/validationUtils';
 
 function LoginForm({ toggleForm }) {
   const navigate = useNavigate();
@@ -19,12 +20,7 @@ function LoginForm({ toggleForm }) {
     if (name === 'email') { setEmail(value); } else { setPassword(value); }
   };
 
-  const validateForm = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
-    return emailRegex.test(email) && passwordRegex.test(password);
-  };
+  const validateForm = () => emailRegex.test(email) && passwordRegex.test(password);
 
   const validateLogin = async () => {
     const { accessToken } = await adminLoginApi(email, password);
