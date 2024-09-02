@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_IH_BASE_API_URL || '';
 
-const findAllInfluencersApi = async (accessToken) => {
+export const getAllInfluencersApi = async (accessToken) => {
   try {
     const response = await axios.get(`${baseUrl}/influencer/all`, {
       headers: {
@@ -16,4 +16,17 @@ const findAllInfluencersApi = async (accessToken) => {
   }
 };
 
-export default findAllInfluencersApi;
+export const getInfluencersByFilterApi = async (accessToken, filters) => {
+  try {
+    const response = await axios.get(`${baseUrl}/influencer/filter`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: filters,
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
