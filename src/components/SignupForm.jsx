@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
+import '../styles/SignupForm.css';
+
 function SignupForm({ toggleForm }) {
   const navigate = useNavigate();
 
@@ -9,8 +11,25 @@ function SignupForm({ toggleForm }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [error, setError] = useState('');
+  const [showPasswordInfo, setShowPasswordInfo] = useState(false);
+  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const isPasswordValid = (passcode) => {
+    const minLength = 7;
+    const hasUppercase = /[A-Z]/.test(passcode);
+    const hasLowercase = /[a-z]/.test(passcode);
+    const hasNumberOrSymbol = /[\d\W]/.test(passcode);
+
+    return {
+      minLength: passcode.length >= minLength,
+      hasUppercase,
+      hasLowercase,
+      hasNumberOrSymbol,
+    };
+  };
+
+  const passwordValidation = isPasswordValid(password);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,7 +40,7 @@ function SignupForm({ toggleForm }) {
     if (name === 'passwordConfirmation') { setPasswordConfirmation(value); }
   };
 
-  const validateSignup = async () => 'loading';
+  const validateSignup = async () => 'api call to signup and login';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -72,7 +91,28 @@ function SignupForm({ toggleForm }) {
             required
             placeholder="senha"
             aria-label="password"
+            onFocus={() => setShowPasswordInfo(true)}
+            onBlur={() => setShowPasswordInfo(false)}
           />
+
+          {showPasswordInfo && (
+          <div className="password-info">
+            <ul>
+              <li className={passwordValidation.minLength ? 'valid' : 'invalid'}>
+                Pelo menos 7 caracteres
+              </li>
+              <li className={passwordValidation.hasUppercase ? 'valid' : 'invalid'}>
+                Pelo menos uma letra maiúscula
+              </li>
+              <li className={passwordValidation.hasLowercase ? 'valid' : 'invalid'}>
+                Pelo menos uma letra minúscula
+              </li>
+              <li className={passwordValidation.hasNumberOrSymbol ? 'valid' : 'invalid'}>
+                Pelo menos um número ou símbolo
+              </li>
+            </ul>
+          </div>
+          )}
         </label>
 
         <label htmlFor="passwordConfirmation">
