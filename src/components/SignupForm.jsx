@@ -6,6 +6,7 @@ import { adminLoginApi, adminSignupApi } from '../api/AuthenticationAPI';
 import { isPasswordValid, validateForm } from '../utils/validationUtils';
 
 import '../styles/SignupForm.css';
+import PasswordInfo from './PasswordInfo';
 
 function SignupForm({ toggleForm }) {
   const navigate = useNavigate();
@@ -107,25 +108,7 @@ function SignupForm({ toggleForm }) {
             onFocus={() => setShowPasswordInfo(true)}
             onBlur={() => setShowPasswordInfo(false)}
           />
-
-          {showPasswordInfo && (
-          <div className="password-info">
-            <ul>
-              <li className={passwordValidation.minLength ? 'valid' : 'invalid'}>
-                Pelo menos 7 caracteres
-              </li>
-              <li className={passwordValidation.hasUppercase ? 'valid' : 'invalid'}>
-                Pelo menos uma letra maiúscula
-              </li>
-              <li className={passwordValidation.hasLowercase ? 'valid' : 'invalid'}>
-                Pelo menos uma letra minúscula
-              </li>
-              <li className={passwordValidation.hasNumberOrSymbol ? 'valid' : 'invalid'}>
-                Pelo menos um número ou símbolo
-              </li>
-            </ul>
-          </div>
-          )}
+          {showPasswordInfo && <PasswordInfo passwordValidation={passwordValidation} />}
         </label>
 
         <label htmlFor="passwordConfirmation">
