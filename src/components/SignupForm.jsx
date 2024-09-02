@@ -12,8 +12,11 @@ function SignupForm({ toggleForm }) {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
   const isPasswordValid = (passcode) => {
     const minLength = 7;
@@ -30,6 +33,32 @@ function SignupForm({ toggleForm }) {
   };
 
   const passwordValidation = isPasswordValid(password);
+
+  const validateForm = () => {
+    if (fullName.length < 3) {
+      setError('Nome deve ter pelo menos 3 caracteres.');
+      return false;
+    }
+
+    if (!emailRegex.test(email)) {
+      setError('O e-mail é inválido.');
+      return false;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError('Senha fraca');
+      return false;
+    }
+
+    if (password !== passwordConfirmation) {
+      setError('As senhas não coincidem.');
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateSignup = async () => console.log('chamou no signup!!');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -52,14 +81,18 @@ function SignupForm({ toggleForm }) {
     }
   };
 
-  const validateSignup = async () => 'api call to signup and login';
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');
     setIsLoading(true);
 
+    if (!validateForm()) {
+      setIsLoading(false);
+      return;
+    }
+
     const isValid = await validateSignup();
-    if (isValid) { navigate('/dashboard'); } else { setError(true); }
+    if (isValid) { navigate('/dashboard'); } else { setError('Erro ao cadastrar. Por favor, tente novamente.'); }
 
     setIsLoading(false);
   };
@@ -143,12 +176,12 @@ function SignupForm({ toggleForm }) {
 
       {error && (
         <div className="error-msg">
-          <p>error message returned from api</p>
+          <p>{error}</p>
         </div>
       )}
 
       <div className="inputs-buttons">
-        <button type="button">
+        <button type="submit" disabled={isLoading}>
           {isLoading ? 'Cadastrando...' : 'Cadastrar'}
         </button>
 
