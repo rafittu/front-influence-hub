@@ -23,3 +23,17 @@ export const adminLoginApi = async (email, password) => {
     return error;
   }
 };
+
+export const userByJwtApi = async (accessToken) => {
+  try {
+    const response = await axios.get(`${baseUrl}/me`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
