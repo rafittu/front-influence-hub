@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 import '../styles/SignupForm.css';
+import { useAdmin } from '../contexts/AdminContext';
+import { adminLoginApi, adminSignupApi } from '../api/AuthenticationAPI';
 
 function SignupForm({ toggleForm }) {
   const navigate = useNavigate();
+  const { setAdminData } = useAdmin();
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -58,7 +61,23 @@ function SignupForm({ toggleForm }) {
     return true;
   };
 
-  const validateSignup = async () => console.log('chamou no signup!!');
+  const validateSignup = async () => {
+    const response = await adminSignupApi(fullName, email, password, passwordConfirmation);
+    if (response.status === 409) {
+      setError('E-mail já cadastrado na plataforma.');
+      return false;
+    }
+
+    setAdminData(response);
+
+    const { accessToken } = await adminLoginApi(email, password);
+    if (accessToken) {
+      localStorage.setItem('metropole4', accessToken);
+      return true;
+    }
+
+    return false;
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -92,7 +111,7 @@ function SignupForm({ toggleForm }) {
     }
 
     const isValid = await validateSignup();
-    if (isValid) { navigate('/dashboard'); } else { setError('Erro ao cadastrar. Por favor, tente novamente.'); }
+    if (isValid) { navigate('/dashboard'); } else { setError('Algo deu errado =/ Tente novamente em alguns instantes.'); }
 
     setIsLoading(false);
   };
