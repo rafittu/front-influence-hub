@@ -68,7 +68,7 @@ function LoginForm() {
             type="email"
             required
             placeholder="e-mail"
-            aria-label="e-mail"
+            aria-label="email"
           />
         </label>
 
