@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import adminLoginApi from '../api/AuthenticationAPI';
 
 import '../styles/LoginForm.css';
 
-function LoginForm() {
+function LoginForm({ toggleForm }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -92,12 +93,14 @@ function LoginForm() {
           {isLoading ? 'Entrando...' : 'Entrar'}
         </button>
 
-        <Link to="/signup">
-          <button type="button" disabled={isLoading}>Cadastrar</button>
-        </Link>
+        <button type="button" onClick={toggleForm} disabled={isLoading}>Cadastrar</button>
       </div>
     </form>
   );
 }
+
+LoginForm.propTypes = {
+  toggleForm: PropTypes.func.isRequired,
+};
 
 export default LoginForm;
