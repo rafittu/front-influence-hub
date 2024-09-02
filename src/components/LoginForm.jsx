@@ -13,8 +13,7 @@ function LoginForm() {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'email') { setEmail(value) }
-    else { setPassword(value) };
+    if (name === 'email') { setEmail(value); } else { setPassword(value); }
   };
 
   const validateLogin = async () => {
@@ -34,8 +33,7 @@ function LoginForm() {
     setIsLoading(true);
     const isValid = await validateLogin();
 
-    if (isValid) { navigate('/dashboard') }
-    else { setError(true) };
+    if (isValid) { navigate('/dashboard'); } else { setError(true); }
 
     setIsLoading(false);
   };
@@ -85,6 +83,6 @@ function LoginForm() {
       </div>
     </form>
   );
-};
+}
 
 export default LoginForm;
