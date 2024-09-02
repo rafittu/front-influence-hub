@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { adminLoginApi } from '../api/AuthenticationAPI';
+import { adminLoginApi, userByJwtApi } from '../api/AuthenticationAPI';
+import { emailRegex, passwordRegex } from '../utils/validationUtils';
+import { useAdmin } from '../contexts/AdminContext';
 
 import '../styles/LoginForm.css';
-import { emailRegex, passwordRegex } from '../utils/validationUtils';
 
 function LoginForm({ toggleForm }) {
   const navigate = useNavigate();
+  const { setAdminData } = useAdmin();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,6 +28,9 @@ function LoginForm({ toggleForm }) {
     const { accessToken } = await adminLoginApi(email, password);
     if (accessToken) {
       localStorage.setItem('metropole4', accessToken);
+
+      const adminData = await userByJwtApi(accessToken);
+      setAdminData(adminData);
       return true;
     }
 
