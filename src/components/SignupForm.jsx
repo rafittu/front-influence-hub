@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-
-import '../styles/SignupForm.css';
 import { useAdmin } from '../contexts/AdminContext';
 import { adminLoginApi, adminSignupApi } from '../api/AuthenticationAPI';
+import { isPasswordValid, validateForm } from '../utils/validationUtils';
+
+import '../styles/SignupForm.css';
 
 function SignupForm({ toggleForm }) {
   const navigate = useNavigate();
@@ -18,48 +19,7 @@ function SignupForm({ toggleForm }) {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
-  const isPasswordValid = (passcode) => {
-    const minLength = 7;
-    const hasUppercase = /[A-Z]/.test(passcode);
-    const hasLowercase = /[a-z]/.test(passcode);
-    const hasNumberOrSymbol = /[\d\W]/.test(passcode);
-
-    return {
-      minLength: passcode.length >= minLength,
-      hasUppercase,
-      hasLowercase,
-      hasNumberOrSymbol,
-    };
-  };
-
   const passwordValidation = isPasswordValid(password);
-
-  const validateForm = () => {
-    if (fullName.length < 3) {
-      setError('Nome deve ter pelo menos 3 caracteres.');
-      return false;
-    }
-
-    if (!emailRegex.test(email)) {
-      setError('O e-mail é inválido.');
-      return false;
-    }
-
-    if (!passwordRegex.test(password)) {
-      setError('Senha fraca');
-      return false;
-    }
-
-    if (password !== passwordConfirmation) {
-      setError('As senhas não coincidem.');
-      return false;
-    }
-
-    return true;
-  };
 
   const validateSignup = async () => {
     const response = await adminSignupApi(fullName, email, password, passwordConfirmation);
@@ -105,13 +65,13 @@ function SignupForm({ toggleForm }) {
     setError('');
     setIsLoading(true);
 
-    if (!validateForm()) {
+    if (!validateForm(fullName, email, password, passwordConfirmation, setError)) {
       setIsLoading(false);
       return;
     }
 
     const isValid = await validateSignup();
-    if (isValid) { navigate('/dashboard'); } else { setError('Algo deu errado =/ Tente novamente em alguns instantes.'); }
+    if (isValid) { navigate('/dashboard'); }
 
     setIsLoading(false);
   };
