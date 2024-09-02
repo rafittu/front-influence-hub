@@ -16,23 +16,41 @@ function LoginForm() {
     if (name === 'email') { setEmail(value); } else { setPassword(value); }
   };
 
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+
+    if (!emailRegex.test(email)) {
+      setError(true);
+      return false;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError(true);
+      return false;
+    }
+
+    return true;
+  };
+
   const validateLogin = async () => {
     try {
       const { accessToken } = await adminLoginApi(email, password);
       localStorage.setItem('metropole4', accessToken);
 
       return true;
-    } catch (error) {
+    } catch (err) {
       return false;
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setIsLoading(true);
-    const isValid = await validateLogin();
 
+    if (!validateForm()) return;
+
+    const isValid = await validateLogin();
     if (isValid) { navigate('/dashboard'); } else { setError(true); }
 
     setIsLoading(false);
@@ -50,6 +68,7 @@ function LoginForm() {
             type="email"
             required
             placeholder="e-mail"
+            aria-label="e-mail"
           />
         </label>
 
@@ -62,6 +81,7 @@ function LoginForm() {
             type="password"
             required
             placeholder="senha"
+            aria-label="password"
           />
         </label>
       </div>
@@ -77,7 +97,7 @@ function LoginForm() {
           {isLoading ? 'Entrando...' : 'Entrar'}
         </button>
 
-        <Link to="/signup">
+        <Link to="/signup" disabled={isLoading}>
           <button type="button">Cadastrar</button>
         </Link>
       </div>
