@@ -1,9 +1,12 @@
 import React from 'react';
 import Router from './Router';
+import { AdminProvider } from '../contexts/AdminContext';
 
 function ProviderManager() {
   return (
-    <Router />
+    <AdminProvider>
+      <Router />
+    </AdminProvider>
   );
 }
 
