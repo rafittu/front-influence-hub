@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import adminLoginApi from '../api/AuthenticationAPI';
 
+import '../styles/LoginForm.css';
+
 function LoginForm() {
   const navigate = useNavigate();
 
@@ -50,7 +52,7 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="credentials-form">
       <div className="inputs-container">
         <label htmlFor="email">
           <input
