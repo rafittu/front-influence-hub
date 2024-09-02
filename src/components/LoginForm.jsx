@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import adminLoginApi from '../api/AuthenticationAPI';
+import { adminLoginApi } from '../api/AuthenticationAPI';
 
 import '../styles/LoginForm.css';
 
