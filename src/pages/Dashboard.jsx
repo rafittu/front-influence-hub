@@ -4,6 +4,7 @@ import { getAllInfluencersApi, getInfluencersByFilterApi } from '../api/Influenc
 import InfluencersTable from '../components/InfluencersTable';
 import NavigationBar from '../components/NavigationBar';
 import FilterModal from '../components/FilterModal';
+import Pagination from '../components/Paginations';
 
 import '../styles/Dashboard.css';
 
@@ -13,6 +14,15 @@ function Dashboard() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const influencersPerPage = 10;
+
+  const indexOfLastInfluencer = currentPage * influencersPerPage;
+  const indexOfFirstInfluencer = indexOfLastInfluencer - influencersPerPage;
+  const currentInfluencers = influencers.slice(indexOfFirstInfluencer, indexOfLastInfluencer);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchInfluencers = async () => {
@@ -66,7 +76,16 @@ function Dashboard() {
 
         {!isLoading && (
           influencers.length > 0 ? (
-            <InfluencersTable influencers={influencers} />
+            <>
+              <InfluencersTable influencers={currentInfluencers} />
+
+              <Pagination
+                influencersPerPage={influencersPerPage}
+                totalInfluencers={influencers.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            </>
           ) : (
             <p>{ error || 'Nenhum influenciador encontrado.'}</p>
           )
