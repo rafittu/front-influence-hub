@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { useAdmin } from '../contexts/AdminContext';
-import { adminLoginApi, adminSignupApi } from '../api/AuthenticationAPI';
-import { isPasswordValid, validateForm } from '../utils/validationUtils';
-
-import '../styles/SignupForm.css';
+import { useAdmin } from '../../contexts/AdminContext';
+import { adminLoginApi, adminSignupApi } from '../../api/AuthenticationAPI';
+import { isPasswordValid, validateForm } from '../../utils/validationUtils';
 import PasswordInfo from './PasswordInfo';
+
+import '../../styles/Homepage/SignupForm.css';
 
 function SignupForm({ toggleForm }) {
   const navigate = useNavigate();

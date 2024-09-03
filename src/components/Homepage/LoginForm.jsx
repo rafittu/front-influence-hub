@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { adminLoginApi, userByJwtApi } from '../api/AuthenticationAPI';
-import { emailRegex, passwordRegex } from '../utils/validationUtils';
-import { useAdmin } from '../contexts/AdminContext';
+import { adminLoginApi, userByJwtApi } from '../../api/AuthenticationAPI';
+import { emailRegex, passwordRegex } from '../../utils/validationUtils';
+import { useAdmin } from '../../contexts/AdminContext';
 
-import '../styles/LoginForm.css';
+import '../../styles/Homepage/LoginForm.css';
 
 function LoginForm({ toggleForm }) {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function LoginForm({ toggleForm }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event) => {
@@ -25,15 +25,20 @@ function LoginForm({ toggleForm }) {
   const validateForm = () => emailRegex.test(email) && passwordRegex.test(password);
 
   const validateLogin = async () => {
-    const { accessToken } = await adminLoginApi(email, password);
-    if (accessToken) {
-      localStorage.setItem('metropole4', accessToken);
+    const response = await adminLoginApi(email, password);
+    if (response.status === 401) {
+      setError('e-email ou senha inválido');
+      return false;
+    }
 
-      const adminData = await userByJwtApi(accessToken);
+    if (response.accessToken) {
+      localStorage.setItem('metropole4', response.accessToken);
+      const adminData = await userByJwtApi(response.accessToken);
       setAdminData(adminData);
       return true;
     }
 
+    setError('Algo inesperado aconteceu :( Tente novamente mais tarde.');
     return false;
   };
 
@@ -42,13 +47,13 @@ function LoginForm({ toggleForm }) {
     setIsLoading(true);
 
     if (!validateForm()) {
-      setError(true);
+      setError('e-mail ou senha inválido');
       setIsLoading(false);
       return;
     }
 
     const isValid = await validateLogin();
-    if (isValid) { navigate('/dashboard'); } else { setError(true); }
+    if (isValid) { navigate('/dashboard'); }
 
     setIsLoading(false);
   };
@@ -85,7 +90,7 @@ function LoginForm({ toggleForm }) {
 
       {error && (
         <div className="error-msg">
-          <p>e-mail ou senha inválido</p>
+          <p>{error}</p>
         </div>
       )}
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/SignupForm';
+import LoginForm from '../components/Homepage/LoginForm';
+import SignupForm from '../components/Homepage/SignupForm';
 
-import '../styles/Home.css';
+import '../styles/Homepage/Home.css';
 
 function Homepage() {
   const [showSignup, setShowSignup] = useState(false);
@@ -11,9 +11,9 @@ function Homepage() {
 
   return (
     <main id="homepage-main">
-      <header id="brand-logo">
+      <figure id="brand-logo">
         <img src="https://metropole4.s3.amazonaws.com/logo.png" alt="Influence Hub Logo" />
-      </header>
+      </figure>
 
       <section>
         {showSignup ? (
