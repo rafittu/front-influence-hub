@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import InfluencerForm from '../components/InfluencerForm';
 import Categories from '../utils/CategoryOptions';
+import getAddress from '../api/Others';
 
 import '../styles/CreateInfluencer/CreateInfluencer.css';
 
 function CreateInfluencer() {
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,6 +23,22 @@ function CreateInfluencer() {
   });
 
   console.log(setFormData);
+
+  const fetchAddressByZipCode = async (zipCode) => {
+    const response = await getAddress(zipCode);
+    if (response.erro) {
+      setError('Erro ao buscar endereço.');
+      return;
+    }
+
+    const { logradouro, localidade, uf } = response;
+    setFormData((prev) => ({
+      ...prev,
+      street: logradouro,
+      city: localidade,
+      state: uf,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -60,6 +78,8 @@ function CreateInfluencer() {
           onChange={handleChange}
           niches={Categories}
         />
+
+        {error && <p>{error}</p>}
       </section>
     </main>
   );
