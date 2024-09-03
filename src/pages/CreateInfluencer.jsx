@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
 import InfluencerForm from '../components/InfluencerForm';
+import { createInfluencerApi } from '../api/InfluencerAPI';
 import Categories from '../utils/CategoryOptions';
 import getAddress from '../api/Others';
 
 import '../styles/CreateInfluencer/CreateInfluencer.css';
 
 function CreateInfluencer() {
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     username: '',
-    reach: '',
+    reach: 0,
     photo: '',
     zipCode: '',
     street: '',
@@ -21,8 +27,6 @@ function CreateInfluencer() {
     state: '',
     niches: [],
   });
-
-  console.log(setFormData);
 
   const fetchAddressByZipCode = async (zipCode) => {
     const response = await getAddress(zipCode);
@@ -53,15 +57,50 @@ function CreateInfluencer() {
         niches: updatedNiches,
       }));
     } else {
+      const parsedValue = type === 'number' ? parseFloat(value) : value;
+
       setFormData((prev) => ({
         ...prev,
-        [name]: value,
+        [name]: parsedValue,
       }));
     }
 
     if (name === 'zipCode' && value.length === 8) {
       fetchAddressByZipCode(value);
     }
+  };
+
+  const createInfluencer = async () => {
+    delete formData.city;
+    delete formData.state;
+
+    const accessToken = localStorage.getItem('metropole4');
+    const response = await createInfluencerApi(accessToken, formData);
+
+    if (response.status === 409) {
+      setError('E-mail ou usuário já cadastrado.');
+      return null;
+    }
+
+    if (response instanceof AxiosError) {
+      setError('Falha ao cadastrar usuário');
+      return null;
+    }
+
+    return response;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    // incluir chamada que valida os campos aqui, antes de chamar a api
+
+    const influencerId = await createInfluencer();
+    if (influencerId) { navigate(`/influencer/${influencerId.id}`); }
+
+    setIsLoading(false);
   };
 
   return (
@@ -76,10 +115,12 @@ function CreateInfluencer() {
         <InfluencerForm
           formData={formData}
           onChange={handleChange}
+          onSubmit={handleSubmit}
           niches={Categories}
         />
 
         {error && <p>{error}</p>}
+        {isLoading && <p>Carregando...</p>}
       </section>
     </main>
   );
