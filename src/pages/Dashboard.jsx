@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAdmin } from '../contexts/AdminContext';
 import { getAllInfluencersApi } from '../api/InfluencerAPI';
+import InfluencersTable from '../components/InfluencersTable';
 
 function Dashboard() {
   const { adminData } = useAdmin();
@@ -9,8 +10,6 @@ function Dashboard() {
   const [error, setError] = useState(null);
 
   console.log(adminData);
-  console.log(isLoading);
-  console.log(influencers);
   console.log(error);
 
   useEffect(() => {
@@ -19,9 +18,7 @@ function Dashboard() {
       setError(null);
 
       try {
-        const
-          accessToken = localStorage.getItem('metropole4');
-
+        const accessToken = localStorage.getItem('metropole4');
         const data = await getAllInfluencersApi(accessToken);
         setInfluencers(data);
       } catch (err) {
@@ -36,7 +33,19 @@ function Dashboard() {
 
   return (
     <main>
-      <h1>Influence Hub Dash</h1>
+      <header>
+        <h1>Influence Hub Dash</h1>
+      </header>
+
+      <section>
+        {!isLoading && (
+          influencers.length > 0 ? (
+            <InfluencersTable influencers={influencers} />
+          ) : (
+            <p>Nenhum influenciador encontrado.</p>
+          )
+        )}
+      </section>
     </main>
   );
 }
