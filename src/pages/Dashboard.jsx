@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAdmin } from '../contexts/AdminContext';
 import { getAllInfluencersApi } from '../api/InfluencerAPI';
 import InfluencersTable from '../components/InfluencersTable';
@@ -39,7 +40,15 @@ function Dashboard() {
       <section>
         {!isLoading && (
           influencers.length > 0 ? (
-            <InfluencersTable influencers={influencers} />
+            <>
+              <h2>Listagem de influenciadores</h2>
+
+              <Link to="/influencer/new">
+                <button type="button">Novo</button>
+              </Link>
+
+              <InfluencersTable influencers={influencers} />
+            </>
           ) : (
             <p>{ error || 'Nenhum influenciador encontrado.'}</p>
           )
