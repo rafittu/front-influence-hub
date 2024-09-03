@@ -10,6 +10,7 @@ function InfluencerForm({
         Nome:
         <input
           type="text"
+          id="name"
           name="name"
           value={formData.name}
           onChange={onChange}
@@ -23,6 +24,7 @@ function InfluencerForm({
         <input
           type="email"
           name="email"
+          id="email"
           value={formData.email}
           onChange={onChange}
           placeholder="Digite o email"
@@ -35,6 +37,7 @@ function InfluencerForm({
         <input
           type="text"
           name="username"
+          id="username"
           value={formData.username}
           onChange={onChange}
           placeholder="Digite o nome de usuário"
@@ -47,6 +50,7 @@ function InfluencerForm({
         <input
           type="number"
           name="reach"
+          id="reach"
           value={formData.reach}
           onChange={onChange}
           placeholder="Digite o alcance"
@@ -70,6 +74,7 @@ function InfluencerForm({
         <input
           type="text"
           name="zipCode"
+          id="zipcode"
           value={formData.zipCode}
           onChange={onChange}
           placeholder="Digite o CEP"
@@ -82,6 +87,7 @@ function InfluencerForm({
         <input
           type="text"
           name="street"
+          id="street"
           value={formData.street}
           onChange={onChange}
           placeholder="Digite a rua"
@@ -94,6 +100,7 @@ function InfluencerForm({
         <input
           type="text"
           name="number"
+          id="number"
           value={formData.number}
           onChange={onChange}
           placeholder="Digite o número"
@@ -106,6 +113,7 @@ function InfluencerForm({
         <input
           type="text"
           name="city"
+          id="city"
           value={formData.city}
           onChange={onChange}
           placeholder="Digite a cidade"
@@ -118,6 +126,7 @@ function InfluencerForm({
         <input
           type="text"
           name="state"
+          id="state"
           value={formData.state}
           onChange={onChange}
           placeholder="Digite o estado"
@@ -133,11 +142,12 @@ function InfluencerForm({
               <input
                 type="checkbox"
                 name="niches"
+                id={niche}
                 value={niche}
                 checked={formData.niches.includes(niche)}
                 onChange={onChange}
               />
-              <label htmlFor="niche">{niche}</label>
+              <span>{niche}</span>
             </div>
           ))}
         </div>
