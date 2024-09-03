@@ -31,8 +31,19 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-right: 37px;
 }
 
 #influenciador-h2 {
   color: rgb(238, 5, 187);
+}
+
+#table-buttons button {
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 15px;
+  border-radius: 5px;
 }
