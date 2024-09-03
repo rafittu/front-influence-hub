@@ -10,7 +10,6 @@ function Dashboard() {
   const [error, setError] = useState(null);
 
   console.log(adminData);
-  console.log(error);
 
   useEffect(() => {
     const fetchInfluencers = async () => {
@@ -42,7 +41,7 @@ function Dashboard() {
           influencers.length > 0 ? (
             <InfluencersTable influencers={influencers} />
           ) : (
-            <p>Nenhum influenciador encontrado.</p>
+            <p>{ error || 'Nenhum influenciador encontrado.'}</p>
           )
         )}
       </section>
