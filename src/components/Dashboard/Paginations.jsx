@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/Paginations.css';
+import '../../styles/Dashboard/Paginations.css';
 
 function Pagination({
   influencersPerPage, totalInfluencers, paginate, currentPage,

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllInfluencersApi, getInfluencersByFilterApi } from '../api/InfluencerAPI';
-import InfluencersTable from '../components/InfluencersTable';
+import InfluencersTable from '../components/Dashboard/InfluencersTable';
 import NavigationBar from '../components/NavigationBar';
-import FilterModal from '../components/FilterModal';
-import Pagination from '../components/Paginations';
+import FilterModal from '../components/Dashboard/FilterModal';
+import Pagination from '../components/Dashboard/Paginations';
 
-import '../styles/Dashboard.css';
+import '../styles/Dashboard/Dashboard.css';
 
 function Dashboard() {
   const [influencers, setInfluencers] = useState([]);

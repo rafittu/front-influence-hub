@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Categories from '../utils/CategoryOptions';
+import Categories from '../../utils/CategoryOptions';
 
-import '../styles/FilterModal.css';
+import '../../styles/Dashboard/FilterModal.css';
 
 function FilterModal({ setIsFilterModalOpen, setFilters, filters }) {
   const [city, setCity] = useState('');

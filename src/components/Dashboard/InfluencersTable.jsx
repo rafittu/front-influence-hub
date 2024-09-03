@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import '../styles/InfluencersTable.css';
+import '../../styles/Dashboard/InfluencersTable.css';
 
 function InfluencersTable({ influencers }) {
   return (
