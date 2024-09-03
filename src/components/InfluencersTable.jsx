@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import '../styles/InfluencersTable.css';
+
 function InfluencersTable({ influencers }) {
   return (
     <table className="influencers-table">

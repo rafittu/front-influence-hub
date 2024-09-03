@@ -1,0 +1,27 @@
+.influencers-table {
+  border-collapse: collapse;
+  color: #c6c8da;
+  text-align: center;
+  margin-top: 37px;
+  width: 100%;
+}
+
+.influencers-table a {
+  color: #c0bcbc;
+  text-decoration: none;
+}
+
+.influencers-table th,
+.influencers-table td {
+  padding: 10px;
+  border-bottom: 1px solid #3f4661;
+}
+
+.influencers-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.influencers-table tbody tr:hover {
+  background-color: #50597b2c;
+}

@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAdmin } from '../contexts/AdminContext';
 import { getAllInfluencersApi } from '../api/InfluencerAPI';
 import InfluencersTable from '../components/InfluencersTable';
 import NavigationBar from '../components/NavigationBar';
 
+import '../styles/Dashboard.css';
+
 function Dashboard() {
-  const { adminData } = useAdmin();
   const [influencers, setInfluencers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  console.log(adminData);
 
   useEffect(() => {
     const fetchInfluencers = async () => {
@@ -33,20 +31,25 @@ function Dashboard() {
   }, []);
 
   return (
-    <main>
+    <main id="dashboard-main">
       <header>
         <NavigationBar />
       </header>
 
-      <section>
+      <section id="dash-section">
         {!isLoading && (
           influencers.length > 0 ? (
             <>
-              <h2>Listagem de influenciadores</h2>
+              <div id="table-header">
+                <h2 id="dash-h2">
+                  Listagem de
+                  <span id="influenciador-h2"> Influenciadores</span>
+                </h2>
 
-              <Link to="/influencer/new">
-                <button type="button">Novo</button>
-              </Link>
+                <Link to="/influencer/new">
+                  <button type="button">Novo</button>
+                </Link>
+              </div>
 
               <InfluencersTable influencers={influencers} />
             </>
