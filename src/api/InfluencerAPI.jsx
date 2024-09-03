@@ -2,9 +2,13 @@ import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_IH_BASE_API_URL || '';
 
-export const createInfluencerApi = async (data) => {
+export const createInfluencerApi = async (accessToken, data) => {
   try {
-    const response = await axios.post(`${baseUrl}/influencer/create`, data);
+    const response = await axios.post(`${baseUrl}/influencer/create`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
