@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Categories from '../utils/CategoryOptions';
 
+import '../styles/FilterModal.css';
+
 function FilterModal({ setIsFilterModalOpen, setFilters, filters }) {
   const [city, setCity] = useState('');
   const [niche, setNiche] = useState('');

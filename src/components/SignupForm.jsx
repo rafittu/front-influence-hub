@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../contexts/AdminContext';
 import { adminLoginApi, adminSignupApi } from '../api/AuthenticationAPI';
 import { isPasswordValid, validateForm } from '../utils/validationUtils';
+import PasswordInfo from './PasswordInfo';
 
 import '../styles/SignupForm.css';
-import PasswordInfo from './PasswordInfo';
 
 function SignupForm({ toggleForm }) {
   const navigate = useNavigate();
