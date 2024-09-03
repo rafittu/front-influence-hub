@@ -87,7 +87,7 @@ function Dashboard() {
               />
             </>
           ) : (
-            <p>{ error || 'Nenhum influenciador encontrado.'}</p>
+            <p id="table-error">{ error || 'Nenhum influenciador encontrado.'}</p>
           )
         )}
       </section>
