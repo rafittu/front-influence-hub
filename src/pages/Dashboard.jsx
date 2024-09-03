@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAdmin } from '../contexts/AdminContext';
 import { getAllInfluencersApi } from '../api/InfluencerAPI';
 import InfluencersTable from '../components/InfluencersTable';
+import NavigationBar from '../components/NavigationBar';
 
 function Dashboard() {
   const { adminData } = useAdmin();
@@ -34,7 +35,7 @@ function Dashboard() {
   return (
     <main>
       <header>
-        <h1>Influence Hub Dash</h1>
+        <NavigationBar />
       </header>
 
       <section>
