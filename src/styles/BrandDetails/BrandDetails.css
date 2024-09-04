@@ -15,6 +15,7 @@
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   color: #ffffff;
+  width: 81%;
 }
 
 #brand-h2 {
@@ -42,44 +43,39 @@
   gap: 10px;
 }
 
-.detail-row {
+#carousel-container {
   display: flex;
-  padding: 10px 15px;
-  background-color: #30224e;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+  overflow-x: auto;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 12px;
+  max-width: 60%;
 }
 
-.detail-row span.label {
-  font-weight: bold;
-  color: #ff4081;
-  flex: 0 0 150px;
-  letter-spacing: 1px;
-}
-
-.detail-row span.value {
-  flex: 1;
-  color: #cfc3c3;
-  letter-spacing: 0.7px;
-}
-
-#buttons-container {
+.carousel-item {
   display: flex;
-  justify-content: end;
-  margin: 10px 50px 0px 0px;
-}
-
-.action-button {
-  background-color: #ff4081;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  margin-left: 15px;
-  border-radius: 5px;
-  font-size: 16px;
+  transition: transform 0.3s ease-in-out;
 }
 
-.action-button:disabled {
-  cursor: not-allowed;
+.carousel-item:hover {
+  transform: scale(1.1);
+}
+
+.carousel-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+}
+
+.carousel-item p {
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
 }
