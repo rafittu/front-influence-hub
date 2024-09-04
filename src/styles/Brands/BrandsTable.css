@@ -1,0 +1,27 @@
+.brands-table {
+  border-collapse: collapse;
+  color: #c6c8da;
+  text-align: center;
+  margin-top: 37px;
+  width: 100%;
+}
+
+.brands-table a {
+  color: #c0bcbc;
+  text-decoration: none;
+}
+
+.brands-table th,
+.brands-table td {
+  padding: 10px;
+  border-bottom: 1px solid #3f4661;
+}
+
+.brands-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.brands-table tbody tr:hover {
+  background-color: #50597b2c;
+}
