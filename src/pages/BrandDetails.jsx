@@ -86,7 +86,7 @@ function BrandDetails() {
       }}
     >
       <img src={influencer.influencer.photo} alt={influencer.influencer.name} className="carousel-image" />
-      <p>{influencer.influencer.name}</p>
+      <p>{influencer.influencer.username}</p>
     </div>
   );
 
