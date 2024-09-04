@@ -41,7 +41,7 @@ function Brands() {
         <div id="table-header">
           <h2 id="brand-h2">
             Listagem de
-            <span id="brand-h2"> Marcas</span>
+            <span id="brand-h2-span"> Marcas</span>
           </h2>
 
           <span id="table-buttons">
