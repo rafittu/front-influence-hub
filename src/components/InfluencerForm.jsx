@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import uploadFileToS3 from '../aws/S3Utils';
 
+import '../styles/InfluencerForm.css';
+
 function InfluencerForm({
   formData, onChange, onSubmit, niches,
 }) {
