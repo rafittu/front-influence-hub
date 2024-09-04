@@ -131,6 +131,7 @@ function InfluencerForm({
           value={formData.zipCode}
           onChange={onChange}
           placeholder="Digite o CEP"
+          maxLength={8}
           required
         />
       </label>

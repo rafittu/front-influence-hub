@@ -8,6 +8,7 @@ import Categories from '../utils/CategoryOptions';
 import getAddress from '../api/Others';
 
 import '../styles/CreateInfluencer/CreateInfluencer.css';
+import { validateCreateInfluencerForm } from '../utils/validationUtils';
 
 function CreateInfluencer() {
   const navigate = useNavigate();
@@ -95,7 +96,10 @@ function CreateInfluencer() {
     setError('');
     setIsLoading(true);
 
-    // incluir chamada que valida os campos aqui, antes de chamar a api
+    if (!validateCreateInfluencerForm(formData, setError)) {
+      setIsLoading(false);
+      return;
+    }
 
     const influencerId = await createInfluencer();
     if (influencerId) { navigate(`/influencer/${influencerId.id}`); }
