@@ -61,7 +61,7 @@ export const getInfluencerByIdApi = async (accessToken, id) => {
 
 export const updateInfluencerApi = async (accessToken, id, data) => {
   try {
-    const response = await axios.put(`${baseUrl}/influencer/${id}`, data, {
+    const response = await axios.patch(`${baseUrl}/influencer/${id}`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
