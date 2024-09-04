@@ -18,7 +18,7 @@ function Brands() {
 
       try {
         const accessToken = localStorage.getItem('metropole4');
-        const data = getAllBrandsApi(accessToken);
+        const data = await getAllBrandsApi(accessToken);
 
         setBrands(data);
       } catch (err) {
