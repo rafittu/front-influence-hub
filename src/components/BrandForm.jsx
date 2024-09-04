@@ -19,8 +19,8 @@ function InfluencerForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="brand-form">
-      <label htmlFor="name" className="form-group">
+    <form onSubmit={handleSubmit} id="brand-form">
+      <label htmlFor="name" className="form-group brand-form-group">
         Nome:
         <input
           type="text"
@@ -33,7 +33,7 @@ function InfluencerForm({
         />
       </label>
 
-      <label htmlFor="description" className="form-group">
+      <label htmlFor="description" className="form-group brand-form-group">
         Descrição:
         <input
           type="text"
@@ -46,7 +46,7 @@ function InfluencerForm({
         />
       </label>
 
-      <label htmlFor="niches" className="form-group">
+      <label htmlFor="niches" className="form-group brand-form-group">
         Categorias:
         <div className="categories">
           {niches.map((niche) => (
