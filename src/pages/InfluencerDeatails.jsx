@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import { getInfluencersByIdApi } from '../api/InfluencerAPI';
 
+import '../styles/InfluencerDetails/InfluencerDetails.css';
+
 function InfluencerDetails() {
   const { id } = useParams();
   const [influencer, setInfluencer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const defaultPhoto = 'https://via.placeholder.com/150x150.png?text=Foto';
+  const defaultPhoto = 'https://pbs.twimg.com/media/EWAJB4WUcAAje8s.png';
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,8 +26,15 @@ function InfluencerDetails() {
     fetchInfluencer();
   }, [id]);
 
+  const renderInfluencerDetails = (label, value) => (
+    <div className="detail-row">
+      <span className="label">{label}</span>
+      <span className="value">{value}</span>
+    </div>
+  );
+
   return (
-    <main>
+    <main id="influencer-main">
       <header>
         <NavigationBar />
       </header>
@@ -44,34 +53,14 @@ function InfluencerDetails() {
             </div>
 
             <div id="details-container">
-              <p>
-                Username:
-                {influencer.username}
-              </p>
-              <p>
-                Email:
-                {influencer.email}
-              </p>
-              <p>
-                Alcance:
-                {influencer.reach}
-              </p>
-              <p>
-                Nichos:
-                {influencer.niches.join(', ')}
-              </p>
-              <p>
-                Endereço:
-                {`${influencer.address.street}, ${influencer.address.number}, ${influencer.address.city} - ${influencer.address.state}, ${influencer.address.zipCode}`}
-              </p>
-              <p>
-                Criado em:
-                {new Date(influencer.createdAt).toLocaleDateString()}
-              </p>
-              <p>
-                Atualizado em:
-                {new Date(influencer.updatedAt).toLocaleDateString()}
-              </p>
+              {renderInfluencerDetails('Username:', influencer.username)}
+              {renderInfluencerDetails('Alcance:', influencer.reach)}
+              {renderInfluencerDetails('Email:', influencer.email)}
+              {renderInfluencerDetails('Categorias:', influencer.niches.join(', '))}
+
+              {renderInfluencerDetails('Endereço:', `${influencer.address.street}, ${influencer.address.number}, ${influencer.address.city} - ${influencer.address.state}, ${influencer.address.zipCode}`)}
+              {renderInfluencerDetails('Criado em:', new Date(influencer.createdAt).toLocaleDateString())}
+              {renderInfluencerDetails('Atualizado em:', new Date(influencer.updatedAt).toLocaleDateString())}
             </div>
           </div>
         </section>
