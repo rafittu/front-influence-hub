@@ -58,3 +58,17 @@ export const getInfluencerByIdApi = async (accessToken, id) => {
     return error;
   }
 };
+
+export const updateInfluencerApi = async (accessToken, id, data) => {
+  try {
+    const response = await axios.put(`${baseUrl}/influencer/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
