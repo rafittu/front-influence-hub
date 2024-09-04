@@ -1,4 +1,4 @@
-.brand-form {
+#brand-form {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.form-group {
+.brand-form-group {
   width: 81%;
   margin-bottom: 20px;
 }
