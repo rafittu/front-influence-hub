@@ -6,11 +6,13 @@ import CreateInfluencer from '../pages/CreateInfluencer';
 import InfluencerDetails from '../pages/InfluencerDeatails';
 import UpdateInfluencer from '../pages/UpdateInfluencer';
 import Brands from '../pages/Brands';
+import CreateBrand from '../pages/CreateBrand';
 
 function Router() {
   return (
     <Routes>
-      <Route exact path="/brands" element={<Brands />} />
+      <Route exact path="/brand/new" element={<CreateBrand />} />
+      <Route exact path="/brand" element={<Brands />} />
 
       <Route exact path="/influencer/new" element={<CreateInfluencer />} />
       <Route exact path="/influencer/:id" element={<InfluencerDetails />} />

@@ -37,7 +37,7 @@ function NavigationBar() {
           <li>Influenciadores</li>
         </Link>
 
-        <Link to="/brands" id="brands-link">
+        <Link to="/brand" id="brands-link">
           <li>Marcas</li>
         </Link>
 

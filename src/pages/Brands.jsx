@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import BrandsTable from '../components/Brands/BrandsTable';
-import getAllBrandsApi from '../api/BrandsAPI';
+import { getAllBrandsApi } from '../api/BrandsAPI';
 
 import '../styles/Brands/Brands.css';
 
@@ -18,7 +18,7 @@ function Brands() {
 
       try {
         const accessToken = localStorage.getItem('metropole4');
-        const data = getAllBrandsApi(accessToken);
+        const data = await getAllBrandsApi(accessToken);
 
         setBrands(data);
       } catch (err) {
