@@ -34,7 +34,19 @@ function UpdateInfluencer() {
       if (response instanceof AxiosError) {
         setError('Erro ao buscar dados do influenciador.');
       } else {
-        setFormData(response);
+        setFormData({
+          name: response.name,
+          email: response.email,
+          username: response.username,
+          reach: response.reach,
+          photo: response.photo || '',
+          zipCode: response.address.zipCode,
+          street: response.address.street,
+          number: response.address.number,
+          city: response.address.city,
+          state: response.address.state,
+          niches: response.niches,
+        });
       }
 
       setIsLoading(false);
@@ -42,6 +54,32 @@ function UpdateInfluencer() {
 
     fetchInfluencer();
   }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+
+    if (type === 'checkbox') {
+      const updatedNiches = formData.niches.includes(value)
+        ? formData.niches.filter((niche) => niche !== value)
+        : [...formData.niches, value];
+
+      setFormData((prev) => ({
+        ...prev,
+        niches: updatedNiches,
+      }));
+    } else {
+      const parsedValue = type === 'number' ? parseFloat(value) : value;
+
+      setFormData((prev) => ({
+        ...prev,
+        [name]: parsedValue,
+      }));
+    }
+
+    if (name === 'zipCode' && value.length === 8) {
+      // fetchAddressByZipCode(value);
+    }
+  };
 
   return (
     <main id="influencer-main">
@@ -57,7 +95,7 @@ function UpdateInfluencer() {
         ) : (
           <InfluencerForm
             formData={formData}
-            // onChange={handleChange}
+            onChange={handleChange}
             // onSubmit={handleSubmit}
             niches={Categories}
           />
