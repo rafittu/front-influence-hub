@@ -10,7 +10,25 @@ function CreateBrand() {
     niches: [],
   });
 
-  console.log(setFormData);
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+
+    if (type === 'checkbox') {
+      const updatedNiches = formData.niches.includes(value)
+        ? formData.niches.filter((niche) => niche !== value)
+        : [...formData.niches, value];
+
+      setFormData((prev) => ({
+        ...prev,
+        niches: updatedNiches,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
 
   return (
     <main id="add-brand-main">
@@ -23,7 +41,7 @@ function CreateBrand() {
 
         <BrandForm
           formData={formData}
-          // onChange={handleChange}
+          onChange={handleChange}
           // onSubmit={handleSubmit}
           niches={Categories}
         />
