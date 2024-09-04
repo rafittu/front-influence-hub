@@ -14,7 +14,6 @@ const uploadFileToS3 = async (file, bucketName) => {
     Key: `${Date.now()}_${file.name}`,
     Body: file,
     ContentType: file.type,
-    ACL: 'public-read',
   };
 
   try {
