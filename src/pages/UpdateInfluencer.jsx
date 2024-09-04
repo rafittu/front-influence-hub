@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
-import { getInfluencerByIdApi } from '../api/InfluencerAPI';
+import { getInfluencerByIdApi, updateInfluencerApi } from '../api/InfluencerAPI';
 import InfluencerForm from '../components/InfluencerForm';
 import Categories from '../utils/CategoryOptions';
 import getAddress from '../api/Others';
+import { validateCreateInfluencerForm } from '../utils/validationUtils';
 
 function UpdateInfluencer() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -26,10 +28,11 @@ function UpdateInfluencer() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const accessToken = localStorage.getItem('metropole4');
+
   useEffect(() => {
     const fetchInfluencer = async () => {
       setIsLoading(true);
-      const accessToken = localStorage.getItem('metropole4');
       const response = await getInfluencerByIdApi(accessToken, id);
 
       if (response instanceof AxiosError) {
@@ -98,6 +101,41 @@ function UpdateInfluencer() {
     }
   };
 
+  const updateInfluencer = async () => {
+    delete formData.city;
+    delete formData.state;
+
+    const response = await updateInfluencerApi(accessToken, id, formData);
+
+    if (response.status === 409) {
+      setError('E-mail ou usuário já cadastrado.');
+      return null;
+    }
+
+    if (response instanceof AxiosError) {
+      setError('Falha ao cadastrar usuário');
+      return null;
+    }
+
+    return response;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    if (!validateCreateInfluencerForm(formData, setError)) {
+      setIsLoading(false);
+      return;
+    }
+
+    const influencerId = await updateInfluencer();
+    if (influencerId) { navigate(`/influencer/${influencerId.id}`); }
+
+    setIsLoading(false);
+  };
+
   return (
     <main id="influencer-main">
       <header>
@@ -113,7 +151,7 @@ function UpdateInfluencer() {
           <InfluencerForm
             formData={formData}
             onChange={handleChange}
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             niches={Categories}
           />
         )}
