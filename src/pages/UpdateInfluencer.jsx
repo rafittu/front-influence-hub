@@ -8,6 +8,8 @@ import Categories from '../utils/CategoryOptions';
 import getAddress from '../api/Others';
 import { validateCreateInfluencerForm } from '../utils/validationUtils';
 
+import '../styles/UpdateInfluencer/UpdateInfluencer.css';
+
 function UpdateInfluencer() {
   const { id } = useParams();
   const navigate = useNavigate();
