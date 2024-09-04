@@ -44,3 +44,17 @@ export const getInfluencersByFilterApi = async (accessToken, filters) => {
     return error;
   }
 };
+
+export const getInfluencersByIdApi = async (accessToken, id) => {
+  try {
+    const response = await axios.get(`${baseUrl}/influencer/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
