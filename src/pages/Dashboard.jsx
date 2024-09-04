@@ -80,8 +80,8 @@ function Dashboard() {
               <InfluencersTable influencers={currentInfluencers} />
 
               <Pagination
-                influencersPerPage={influencersPerPage}
-                totalInfluencers={influencers.length}
+                itensPerPage={influencersPerPage}
+                totalItens={influencers.length}
                 paginate={paginate}
                 currentPage={currentPage}
               />
