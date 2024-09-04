@@ -6,6 +6,8 @@ import BrandForm from '../components/BrandForm';
 import Categories from '../utils/CategoryOptions';
 import { createBrandApi } from '../api/BrandsAPI';
 
+import '../styles/CreateBrand/CreateBrand.css';
+
 function CreateBrand() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
