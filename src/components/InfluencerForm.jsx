@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import uploadFileToS3 from '../aws/S3Utils';
 
 function InfluencerForm({
   formData, onChange, onSubmit, niches,
 }) {
+  const [photoLoading, setPhotoLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const defaultPhoto = 'https://via.placeholder.com/150x150.png?text=Foto';
+
+  const handlePhotoUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setPhotoLoading(true);
+
+    try {
+      const photoUrl = await uploadFileToS3(file, 'REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME');
+      onChange({ target: { name: 'photo', value: photoUrl } });
+    } catch (err) {
+      setError('Erro ao carregar foto.');
+    } finally {
+      setPhotoLoading(false);
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="influencer-form">
       <label htmlFor="name" className="form-group">
@@ -58,16 +80,45 @@ function InfluencerForm({
         />
       </label>
 
-      {/* <label className="form-group">
-        Foto (URL):
-        <input
-          type="url"
-          name="photo"
-          value={formData.photo}
-          onChange={onChange}
-          placeholder="URL da foto (opcional)"
-        />
-      </label> */}
+      <label htmlFor="photo" className="photo-upload form-group">
+        <div className="photo-container error-msg">
+          <img
+            src={formData.photo || defaultPhoto}
+            alt="Foto do Influenciador"
+            className="photo-preview"
+          />
+          { error && <p>{error}</p>}
+        </div>
+        <div className="input-container">
+          <input
+            type="file"
+            name="photo"
+            onChange={handlePhotoUpload}
+            accept="image/*"
+            className="photo-input"
+          />
+          {photoLoading && <p>Carregando foto...</p>}
+        </div>
+      </label>
+
+      <label htmlFor="niches" className="form-group">
+        Categorias:
+        <div className="categories">
+          {niches.map((niche) => (
+            <div key={niche}>
+              <input
+                type="checkbox"
+                name="niches"
+                id={niche}
+                value={niche}
+                checked={formData.niches.includes(niche)}
+                onChange={onChange}
+              />
+              <span>{niche}</span>
+            </div>
+          ))}
+        </div>
+      </label>
 
       <label htmlFor="zipcode" className="form-group">
         CEP:
@@ -91,7 +142,7 @@ function InfluencerForm({
           value={formData.street}
           onChange={onChange}
           placeholder="Digite a rua"
-          required
+          disabled
         />
       </label>
 
@@ -117,7 +168,7 @@ function InfluencerForm({
           value={formData.city}
           onChange={onChange}
           placeholder="Digite a cidade"
-          required
+          disabled
         />
       </label>
 
@@ -130,27 +181,8 @@ function InfluencerForm({
           value={formData.state}
           onChange={onChange}
           placeholder="Digite o estado"
-          required
+          disabled
         />
-      </label>
-
-      <label htmlFor="niches" className="form-group">
-        Niches:
-        <div className="categories">
-          {niches.map((niche) => (
-            <div key={niche}>
-              <input
-                type="checkbox"
-                name="niches"
-                id={niche}
-                value={niche}
-                checked={formData.niches.includes(niche)}
-                onChange={onChange}
-              />
-              <span>{niche}</span>
-            </div>
-          ))}
-        </div>
       </label>
 
       <button type="submit" className="submit-button">Salvar</button>
