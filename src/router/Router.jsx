@@ -5,14 +5,19 @@ import Dashboard from '../pages/Dashboard';
 import CreateInfluencer from '../pages/CreateInfluencer';
 import InfluencerDetails from '../pages/InfluencerDeatails';
 import UpdateInfluencer from '../pages/UpdateInfluencer';
+import Brands from '../pages/Brands';
 
 function Router() {
   return (
     <Routes>
+      <Route exact path="/brands" element={<Brands />} />
+
       <Route exact path="/influencer/new" element={<CreateInfluencer />} />
       <Route exact path="/influencer/:id" element={<InfluencerDetails />} />
       <Route exact path="/influencer/:id/edit" element={<UpdateInfluencer />} />
+
       <Route exact path="/dashboard" element={<Dashboard />} />
+
       <Route exact path="/" element={<Home />} />
     </Routes>
   );
