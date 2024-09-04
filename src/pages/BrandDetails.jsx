@@ -62,6 +62,10 @@ function BrandDetails() {
     navigate(`/brand/${id}/edit`);
   };
 
+  const handleAddInfluence = () => {
+    navigate(`/brand/associate-influencer/${id}`);
+  };
+
   const handleInfluencerClick = (influencerId) => {
     navigate(`/influencer/${influencerId}`);
   };
@@ -108,6 +112,7 @@ function BrandDetails() {
 
           <div id="buttons-container">
             <button type="button" className="action-button" onClick={handleEditClick}>Editar</button>
+            <button type="button" className="action-button" onClick={handleAddInfluence}>Associar Influencer</button>
             <button type="button" className="action-button" disabled>Deletar</button>
           </div>
 
