@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import uploadFileToS3 from '../aws/S3Utils';
 
 import '../styles/InfluencerForm.css';
@@ -7,6 +8,8 @@ import '../styles/InfluencerForm.css';
 function InfluencerForm({
   formData, onChange, onSubmit, niches,
 }) {
+  const navigate = useNavigate();
+
   const [photoLoading, setPhotoLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,6 +30,10 @@ function InfluencerForm({
     } finally {
       setPhotoLoading(false);
     }
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -190,7 +197,10 @@ function InfluencerForm({
         />
       </label>
 
-      <button type="submit" className="submit-button">Salvar</button>
+      <div className="button-group">
+        <button type="submit" className="form-button">Salvar</button>
+        <button type="button" onClick={handleGoBack} className="form-button">Cancelar</button>
+      </div>
     </form>
   );
 }
