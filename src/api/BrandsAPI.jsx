@@ -16,7 +16,7 @@ export const createBrandApi = async (accessToken, data) => {
   }
 };
 
-const getAllBrandsApi = async (accessToken) => {
+export const getAllBrandsApi = async (accessToken) => {
   try {
     const response = await axios.get(`${baseUrl}/brand`, {
       headers: {
@@ -29,5 +29,3 @@ const getAllBrandsApi = async (accessToken) => {
     return error;
   }
 };
-
-export default getAllBrandsApi;
