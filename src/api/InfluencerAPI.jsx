@@ -45,7 +45,7 @@ export const getInfluencersByFilterApi = async (accessToken, filters) => {
   }
 };
 
-export const getInfluencersByIdApi = async (accessToken, id) => {
+export const getInfluencerByIdApi = async (accessToken, id) => {
   try {
     const response = await axios.get(`${baseUrl}/influencer/${id}`, {
       headers: {

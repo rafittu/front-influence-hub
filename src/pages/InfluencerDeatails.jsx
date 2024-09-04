@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
-import { getInfluencersByIdApi } from '../api/InfluencerAPI';
+import { getInfluencerByIdApi } from '../api/InfluencerAPI';
 
 import '../styles/InfluencerDetails/InfluencerDetails.css';
 
@@ -19,7 +19,7 @@ function InfluencerDetails() {
 
     const fetchInfluencer = async () => {
       const accessToken = localStorage.getItem('metropole4');
-      const response = await getInfluencersByIdApi(accessToken, id);
+      const response = await getInfluencerByIdApi(accessToken, id);
 
       setInfluencer(response);
       setIsLoading(false);
