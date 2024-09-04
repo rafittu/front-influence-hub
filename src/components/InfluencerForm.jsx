@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import uploadFileToS3 from '../aws/S3Utils';
+import { deleteFileFromS3, uploadFileToS3 } from '../aws/S3Utils';
 
 import '../styles/InfluencerForm.css';
 
@@ -10,21 +10,39 @@ function InfluencerForm({
 }) {
   const navigate = useNavigate();
 
+  const [temporaryPhoto, setTemporaryPhoto] = useState(null);
   const [photoLoading, setPhotoLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const defaultPhoto = 'https://via.placeholder.com/150x150.png?text=Foto';
 
-  const handlePhotoUpload = async (event) => {
+  const handlePhotoChange = (event) => {
     const file = event.target.files[0];
-    if (!file) return;
+    if (file) {
+      setTemporaryPhoto(file);
+      const temporaryUrl = URL.createObjectURL(file);
+      onChange({ target: { name: 'photo', value: temporaryUrl } });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     setPhotoLoading(true);
 
     try {
-      const bucketName = process.env.REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME || '';
-      const photoUrl = await uploadFileToS3(file, bucketName);
-      onChange({ target: { name: 'photo', value: photoUrl } });
+      if (temporaryPhoto) {
+        const bucketName = process.env.REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME || '';
+
+        if (formData.photo && formData.photo !== defaultPhoto) {
+          await deleteFileFromS3(formData.photo, bucketName);
+        }
+
+        const photoUrl = await uploadFileToS3(temporaryPhoto, bucketName);
+        onChange({ target: { name: 'photo', value: photoUrl } });
+      }
+
+      onSubmit(e);
     } catch (err) {
       setError('Erro ao carregar foto.');
     } finally {
@@ -32,12 +50,14 @@ function InfluencerForm({
     }
   };
 
-  const handleGoBack = () => {
+  const handleCancel = () => {
+    setTemporaryPhoto(null);
+    onChange({ target: { name: 'photo', value: null } });
     navigate(-1);
   };
 
   return (
-    <form onSubmit={onSubmit} className="influencer-form">
+    <form onSubmit={handleSubmit} className="influencer-form">
       <label htmlFor="name" className="form-group">
         Nome:
         <input
@@ -103,7 +123,7 @@ function InfluencerForm({
           <input
             type="file"
             name="photo"
-            onChange={handlePhotoUpload}
+            onChange={handlePhotoChange}
             accept="image/*"
             className="photo-input"
             disabled={photoLoading}
@@ -199,7 +219,7 @@ function InfluencerForm({
 
       <div className="button-group">
         <button type="submit" className="form-button">Salvar</button>
-        <button type="button" onClick={handleGoBack} className="form-button">Cancelar</button>
+        <button type="button" onClick={handleCancel} className="form-button">Cancelar</button>
       </div>
     </form>
   );
