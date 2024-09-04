@@ -97,6 +97,7 @@ function InfluencerForm({
             onChange={handlePhotoUpload}
             accept="image/*"
             className="photo-input"
+            disabled={photoLoading}
           />
           {photoLoading && <p>Carregando foto...</p>}
         </div>
