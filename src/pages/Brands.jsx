@@ -4,6 +4,8 @@ import NavigationBar from '../components/NavigationBar';
 import BrandsTable from '../components/Brands/BrandsTable';
 import getAllBrandsApi from '../api/BrandsAPI';
 
+import '../styles/Brands/Brands.css';
+
 function Brands() {
   const [brands, setBrands] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,21 +32,21 @@ function Brands() {
   }, []);
 
   return (
-    <main>
+    <main id="brand-main">
       <header>
         <NavigationBar />
       </header>
 
       <section id="brands-section">
         <div id="table-header">
-          <h2 id="dash-h2">
+          <h2 id="brand-h2">
             Listagem de
-            <span id="influenciador-h2"> Marcas</span>
+            <span id="brand-h2"> Marcas</span>
           </h2>
 
           <span id="table-buttons">
-            <Link to="/influencer/new">
-              <button type="button">Novo</button>
+            <Link to="/brand/new">
+              <button type="button">Nova</button>
             </Link>
           </span>
         </div>

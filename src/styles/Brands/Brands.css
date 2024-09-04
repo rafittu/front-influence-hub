@@ -1,0 +1,51 @@
+#brand-main {
+  background-color: #151b3b;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#brands-section {
+  background-color: #25174dde;
+  width: 72%;
+  padding: 20px;
+  margin: 30px;
+  box-sizing: border-box;
+}
+
+#table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 37px;
+}
+
+#brand-h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+#brand-h2 {
+  color: rgb(238, 5, 187);
+}
+
+#table-buttons button {
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+#table-error {
+  font-size: 18px;
+  letter-spacing: 0.7px;
+  color: #756b6e;
+}
