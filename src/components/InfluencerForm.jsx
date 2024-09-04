@@ -17,7 +17,8 @@ function InfluencerForm({
     setPhotoLoading(true);
 
     try {
-      const photoUrl = await uploadFileToS3(file, 'REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME');
+      const bucketName = process.env.REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME || '';
+      const photoUrl = await uploadFileToS3(file, bucketName);
       onChange({ target: { name: 'photo', value: photoUrl } });
     } catch (err) {
       setError('Erro ao carregar foto.');
