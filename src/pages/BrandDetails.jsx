@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import { getBrandByIdApi, getInfluencersByBrandIdApi } from '../api/BrandsAPI';
@@ -9,6 +9,7 @@ function BrandDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const carouselRef = useRef(null);
   const [brand, setBrand] = useState(null);
   const [influencers, setInfluencers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +30,26 @@ function BrandDetails() {
 
     fetchData();
   }, [id]);
+
+  // effect para rodar o carrousel automaticamente
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const { scrollWidth } = carouselRef.current;
+        const { clientWidth } = carouselRef.current;
+        const { scrollLeft } = carouselRef.current;
+        const maxScrollLeft = scrollWidth - clientWidth;
+
+        const newScrollLeft = scrollLeft + clientWidth * 0.1; // ajustar velocidade do carrousel
+        carouselRef.current.scrollTo({
+          left: newScrollLeft > maxScrollLeft ? 0 : newScrollLeft,
+          behavior: 'smooth',
+        });
+      }
+    }, 2000); // ajustar intervalo de rolagem do carrousel
+
+    return () => clearInterval(interval);
+  }, [influencers]);
 
   const renderBrandDetails = (label, value) => (
     <div className="detail-row">
@@ -91,7 +112,7 @@ function BrandDetails() {
           </div>
 
           {influencers.length > 0 && (
-            <div id="carousel-container">
+            <div id="carousel-container" ref={carouselRef}>
               {influencers.length > 0 && (
               <>
                 {filterInfluencersWithPhoto(influencers).map(renderCarouselItem)}
