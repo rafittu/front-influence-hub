@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-import '../styles/InfluencerForm.css';
+import '../styles/BrandForm.css';
 
 function InfluencerForm({
   formData, onChange, onSubmit, niches,
