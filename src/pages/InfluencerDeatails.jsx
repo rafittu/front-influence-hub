@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import { getInfluencersByIdApi } from '../api/InfluencerAPI';
 
@@ -7,6 +7,8 @@ import '../styles/InfluencerDetails/InfluencerDetails.css';
 
 function InfluencerDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [influencer, setInfluencer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +34,10 @@ function InfluencerDetails() {
       <span className="value">{value}</span>
     </div>
   );
+
+  const handleEditClick = () => {
+    navigate(`/influencer/${id}/edit`);
+  };
 
   return (
     <main id="influencer-main">
@@ -62,6 +68,11 @@ function InfluencerDetails() {
               {renderInfluencerDetails('Criado em:', new Date(influencer.createdAt).toLocaleDateString())}
               {renderInfluencerDetails('Atualizado em:', new Date(influencer.updatedAt).toLocaleDateString())}
             </div>
+          </div>
+
+          <div id="buttons-container">
+            <button type="button" className="action-button" onClick={handleEditClick}>Editar</button>
+            <button type="button" className="action-button" disabled>Deletar</button>
           </div>
         </section>
       )}
