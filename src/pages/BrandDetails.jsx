@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
-import { getBrandByIdApi } from '../api/BrandsAPI';
+import { getBrandByIdApi, getInfluencersByBrandIdApi } from '../api/BrandsAPI';
 
 import '../styles/BrandDetails/BrandDetails.css';
 
@@ -10,20 +10,24 @@ function BrandDetails() {
   const navigate = useNavigate();
 
   const [brand, setBrand] = useState(null);
+  const [influencers, setInfluencers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
+    const accessToken = localStorage.getItem('metropole4');
 
-    const fetchBrand = async () => {
-      const accessToken = localStorage.getItem('metropole4');
-      const response = await getBrandByIdApi(accessToken, id);
+    const fetchData = async () => {
+      const brandData = await getBrandByIdApi(accessToken, id);
+      setBrand(brandData);
 
-      setBrand(response);
+      const influencersData = await getInfluencersByBrandIdApi(accessToken, id, brandData.name);
+      setInfluencers(influencersData);
+
       setIsLoading(false);
     };
 
-    fetchBrand();
+    fetchData();
   }, [id]);
 
   const renderBrandDetails = (label, value) => (
@@ -36,6 +40,30 @@ function BrandDetails() {
   const handleEditClick = () => {
     navigate(`/brand/${id}/edit`);
   };
+
+  const handleInfluencerClick = (influencerId) => {
+    navigate(`/influencer/${influencerId}`);
+  };
+
+  const filterInfluencersWithPhoto = (allInfluencers) => allInfluencers.filter((influencer) => influencer.influencer.photo && influencer.influencer.photo.trim() !== '');
+
+  const renderCarouselItem = (influencer) => (
+    <div
+      key={influencer.influencer.id}
+      className="carousel-item"
+      onClick={() => handleInfluencerClick(influencer.influencerId)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleInfluencerClick(influencer.influencerId);
+        }
+      }}
+    >
+      <img src={influencer.influencer.photo} alt={influencer.influencer.name} className="carousel-image" />
+      <p>{influencer.influencer.name}</p>
+    </div>
+  );
 
   return (
     <main id="brand-main">
@@ -61,6 +89,16 @@ function BrandDetails() {
             <button type="button" className="action-button" onClick={handleEditClick}>Editar</button>
             <button type="button" className="action-button" disabled>Deletar</button>
           </div>
+
+          {influencers.length > 0 && (
+            <div id="carousel-container">
+              {influencers.length > 0 && (
+              <>
+                {filterInfluencersWithPhoto(influencers).map(renderCarouselItem)}
+              </>
+              )}
+            </div>
+          )}
         </section>
       )}
     </main>
