@@ -5,6 +5,7 @@ import NavigationBar from '../components/NavigationBar';
 import { getInfluencerByIdApi } from '../api/InfluencerAPI';
 import InfluencerForm from '../components/InfluencerForm';
 import Categories from '../utils/CategoryOptions';
+import getAddress from '../api/Others';
 
 function UpdateInfluencer() {
   const { id } = useParams();
@@ -55,6 +56,22 @@ function UpdateInfluencer() {
     fetchInfluencer();
   }, [id]);
 
+  const fetchAddressByZipCode = async (zipCode) => {
+    const response = await getAddress(zipCode);
+    if (response.erro) {
+      setError('Erro ao buscar endereço.');
+      return;
+    }
+
+    const { logradouro, localidade, uf } = response;
+    setFormData((prev) => ({
+      ...prev,
+      street: logradouro,
+      city: localidade,
+      state: uf,
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -77,7 +94,7 @@ function UpdateInfluencer() {
     }
 
     if (name === 'zipCode' && value.length === 8) {
-      // fetchAddressByZipCode(value);
+      fetchAddressByZipCode(value);
     }
   };
 
