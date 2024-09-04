@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import BrandsTable from '../components/Brands/BrandsTable';
-import { getAllBrandsApi } from '../api/BrandsAPI';
+import getAllBrandsApi from '../api/BrandsAPI';
 
 function Brands() {
   const [brands, setBrands] = useState([]);
