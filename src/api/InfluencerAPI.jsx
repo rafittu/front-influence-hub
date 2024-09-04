@@ -45,9 +45,23 @@ export const getInfluencersByFilterApi = async (accessToken, filters) => {
   }
 };
 
-export const getInfluencersByIdApi = async (accessToken, id) => {
+export const getInfluencerByIdApi = async (accessToken, id) => {
   try {
     const response = await axios.get(`${baseUrl}/influencer/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateInfluencerApi = async (accessToken, id, data) => {
+  try {
+    const response = await axios.patch(`${baseUrl}/influencer/${id}`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

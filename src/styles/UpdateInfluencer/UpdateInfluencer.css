@@ -1,4 +1,4 @@
-#create-influencer-main {
+#influencer-main {
   background-color: #151b3b;
   min-height: 100vh;
   display: flex;
@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-#new-influence-section {
+#update-influencer-section {
   width: 81%;
   padding: 20px;
   margin: 30px;
@@ -18,9 +18,9 @@
   width: 70%;
 }
 
-#new-influence-section h1 {
+#update-influencer-section h1 {
   font-size: 24px;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 27px;
   text-align: center;
 }
