@@ -8,7 +8,7 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-const uploadFileToS3 = async (file, bucketName) => {
+export const uploadFileToS3 = async (file, bucketName) => {
   const params = {
     Bucket: bucketName,
     Key: `${Date.now()}_${file.name}`,
@@ -24,4 +24,15 @@ const uploadFileToS3 = async (file, bucketName) => {
   }
 };
 
-export default uploadFileToS3;
+export const deleteFileFromS3 = async (file, bucketName) => {
+  const params = {
+    Bucket: bucketName,
+    Key: file,
+  };
+
+  try {
+    await s3.deleteObject(params).promise();
+  } catch (err) {
+    throw new Error('Erro ao deletar a foto');
+  }
+};
