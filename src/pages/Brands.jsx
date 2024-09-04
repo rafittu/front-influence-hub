@@ -5,11 +5,21 @@ import BrandsTable from '../components/Brands/BrandsTable';
 import { getAllBrandsApi } from '../api/BrandsAPI';
 
 import '../styles/Brands/Brands.css';
+import Pagination from '../components/Dashboard/Paginations';
 
 function Brands() {
   const [brands, setBrands] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const brandsPerPage = 10;
+
+  const indexOfLastBrand = currentPage * brandsPerPage;
+  const indexOfFirstBrand = indexOfLastBrand - brandsPerPage;
+  const currentBrands = brands.slice(indexOfFirstBrand, indexOfLastBrand);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -53,7 +63,16 @@ function Brands() {
 
         {!isLoading && (
           brands.length > 0 ? (
-            <BrandsTable brands={brands} />
+            <>
+              <BrandsTable brands={currentBrands} />
+
+              <Pagination
+                itensPerPage={brandsPerPage}
+                totalItens={brands.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            </>
           ) : (
             <p id="table-error">{ error || 'Nenhuma marca encontrada.'}</p>
           )

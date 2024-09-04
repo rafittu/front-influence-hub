@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import '../../styles/Dashboard/Paginations.css';
 
 function Pagination({
-  influencersPerPage, totalInfluencers, paginate, currentPage,
+  itensPerPage, totalItens, paginate, currentPage,
 }) {
   const calculatePageNumbers = () => {
     const pageNumbers = [];
-    const totalPages = Math.ceil(totalInfluencers / influencersPerPage);
+    const totalPages = Math.ceil(totalItens / itensPerPage);
     for (let i = 1; i <= totalPages; i += 1) {
       pageNumbers.push(i);
     }
@@ -53,8 +53,8 @@ function Pagination({
 }
 
 Pagination.propTypes = {
-  influencersPerPage: PropTypes.number.isRequired,
-  totalInfluencers: PropTypes.number.isRequired,
+  itensPerPage: PropTypes.number.isRequired,
+  totalItens: PropTypes.number.isRequired,
   paginate: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
 };
