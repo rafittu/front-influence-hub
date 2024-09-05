@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import { getBrandByIdApi, getInfluencersBrandApi } from '../api/BrandsAPI';
 
-import '../styles/BrandDetails/BrandDetails.css';
+import '../styles/Brands/BrandDetails.css';
 
 function BrandDetails() {
   const { id } = useParams();

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { deleteFileFromS3, uploadFileToS3 } from '../aws/S3Utils';
+import { deleteFileFromS3, uploadFileToS3 } from '../../aws/S3Utils';
 
-import '../styles/InfluencerForm.css';
+import '../../styles/Influencers/InfluencerForm.css';
 
 function InfluencerForm({
   formData, onChange, onSubmit, niches,

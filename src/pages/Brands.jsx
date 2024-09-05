@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import BrandsTable from '../components/Brands/BrandsTable';
 import { getAllBrandsApi } from '../api/BrandsAPI';
+import Pagination from '../components/Dashboard/Paginations';
 
 import '../styles/Brands/Brands.css';
-import Pagination from '../components/Dashboard/Paginations';
 
 function Brands() {
   const [brands, setBrands] = useState([]);
