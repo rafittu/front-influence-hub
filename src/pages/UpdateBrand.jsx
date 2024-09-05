@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
 import BrandForm from '../components/BrandForm';
 import Categories from '../utils/CategoryOptions';
-import { getBrandByIdApi } from '../api/BrandAPI';
+import { getBrandByIdApi, updateBrandApi } from '../api/BrandAPI';
 
 function UpdateBrand() {
   const { id } = useParams();
@@ -18,11 +18,12 @@ function UpdateBrand() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const accessToken = localStorage.getItem('metropole4');
+
   useEffect(() => {
     const fetchBrand = async () => {
       setIsLoading(true);
 
-      const accessToken = localStorage.getItem('metropole4');
       const response = await getBrandByIdApi(accessToken, id);
 
       if (response instanceof AxiosError) {
@@ -55,6 +56,33 @@ function UpdateBrand() {
         [name]: value,
       }));
     }
+  };
+
+  const updateBrand = async () => {
+    const response = await updateBrandApi(accessToken, id, formData);
+
+    if (response.status === 409) {
+      setError('Nome da marca já cadastrado.');
+      return null;
+    }
+
+    if (response instanceof AxiosError) {
+      setError('Falha ao cadastrar marca');
+      return null;
+    }
+
+    return response;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    const brandId = await updateBrand();
+    if (brandId) { navigate(`/brand/${brandId.id}`); }
+
+    setIsLoading(false);
   };
 
   return (
