@@ -25,29 +25,32 @@ function InfluencerForm({
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setPhotoLoading(true);
-
+  const updateS3BucketPhoto = async () => {
     try {
-      if (temporaryPhoto) {
-        const bucketName = process.env.REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME || '';
+      const bucketName = process.env.REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME || '';
 
+      if (temporaryPhoto) {
         if (formData.photo && formData.photo !== defaultPhoto) {
           await deleteFileFromS3(formData.photo, bucketName);
         }
 
-        const photoUrl = await uploadFileToS3(temporaryPhoto, bucketName);
-        onChange({ target: { name: 'photo', value: photoUrl } });
+        const s3PhotoUrl = await uploadFileToS3(temporaryPhoto, bucketName);
+        onChange({ target: { name: 'photo', value: s3PhotoUrl } });
       }
-
-      onSubmit(e);
     } catch (err) {
       setError('Erro ao carregar foto.');
     } finally {
       setPhotoLoading(false);
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setPhotoLoading(true);
+    await updateS3BucketPhoto();
+
+    onSubmit(e);
   };
 
   const handleCancel = () => {
