@@ -112,7 +112,7 @@ function BrandDetails() {
 
           <div id="buttons-container">
             <button type="button" className="action-button" onClick={handleEditClick}>Editar</button>
-            <button type="button" className="action-button" onClick={handleAddInfluence}>Associar Influencer</button>
+            <button type="button" className="action-button" onClick={handleAddInfluence} disabled>Associar Influencer</button>
             <button type="button" className="action-button" disabled>Deletar</button>
           </div>
 
