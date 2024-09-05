@@ -6,6 +6,8 @@ import BrandForm from '../components/BrandForm';
 import Categories from '../utils/CategoryOptions';
 import { getBrandByIdApi, updateBrandApi } from '../api/BrandsAPI';
 
+import '../styles/UpdateBrand/UpdateBrand.css';
+
 function UpdateBrand() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +31,11 @@ function UpdateBrand() {
       if (response instanceof AxiosError) {
         setError('Erro ao buscar dados da marca.');
       } else {
-        setFormData(response);
+        setFormData({
+          name: response.name,
+          description: response.description,
+          niches: response.niches,
+        });
       }
 
       setIsLoading(false);
@@ -86,7 +92,7 @@ function UpdateBrand() {
   };
 
   return (
-    <main>
+    <main id="upt-brand-main">
       <header>
         <NavigationBar />
       </header>
