@@ -1,0 +1,37 @@
+#pagination-nav {
+  text-align: center;
+  margin-top: 40px;
+}
+
+#pagination {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+}
+
+#pagination li {
+  margin: 0 5px;
+}
+
+#pagination li button {
+  background-color: transparent;
+  border: none;
+  color: rgb(114, 97, 116);
+  padding: 4px 6px;
+  cursor: pointer;
+  border-radius: 100%;
+  transition: background-color 0.3s ease;
+}
+
+#pagination li button:hover {
+  color: #ff00cc;
+}
+
+#pagination li.active button {
+  background-color: #ff00cc;
+  color: white;
+}
+
+#pagination li button[disabled] {
+  cursor: not-allowed;
+}

@@ -1,0 +1,26 @@
+.password-info {
+  top: 100%;
+  left: 0;
+  border-radius: 5px;
+  padding: 10px;
+  width: 300px;
+}
+
+.password-info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.password-info li {
+  margin-bottom: 5px;
+  color: red;
+}
+
+.password-info li.valid {
+  color: green;
+}
+
+.password-info li.invalid {
+  color: red;
+}
