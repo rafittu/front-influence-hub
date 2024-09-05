@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
-import BrandForm from '../components/BrandForm';
+import BrandForm from '../components/Brands/BrandForm';
 import Categories from '../utils/CategoryOptions';
 import { createBrandApi } from '../api/BrandsAPI';
 
-import '../styles/CreateBrand/CreateBrand.css';
+import '../styles/Brands/CreateBrand.css';
 
 function CreateBrand() {
   const navigate = useNavigate();

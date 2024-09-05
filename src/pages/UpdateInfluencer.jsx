@@ -3,12 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
 import { getInfluencerByIdApi, updateInfluencerApi } from '../api/InfluencerAPI';
-import InfluencerForm from '../components/InfluencerForm';
+import InfluencerForm from '../components/Influencer/InfluencerForm';
 import Categories from '../utils/CategoryOptions';
 import getAddress from '../api/Others';
 import { validateCreateInfluencerForm } from '../utils/validationUtils';
 
-import '../styles/UpdateInfluencer/UpdateInfluencer.css';
+import '../styles/Influencers/UpdateInfluencer.css';
 
 function UpdateInfluencer() {
   const { id } = useParams();

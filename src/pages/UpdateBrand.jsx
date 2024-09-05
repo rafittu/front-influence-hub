@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
-import BrandForm from '../components/BrandForm';
+import BrandForm from '../components/Brands/BrandForm';
 import Categories from '../utils/CategoryOptions';
 import { getBrandByIdApi, updateBrandApi } from '../api/BrandsAPI';
 
-import '../styles/UpdateBrand/UpdateBrand.css';
+import '../styles/Brands/UpdateBrand.css';
 
 function UpdateBrand() {
   const { id } = useParams();

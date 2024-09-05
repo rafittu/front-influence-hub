@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
-import InfluencerForm from '../components/InfluencerForm';
+import InfluencerForm from '../components/Influencer/InfluencerForm';
 import { createInfluencerApi } from '../api/InfluencerAPI';
 import Categories from '../utils/CategoryOptions';
 import getAddress from '../api/Others';
-
-import '../styles/CreateInfluencer/CreateInfluencer.css';
 import { validateCreateInfluencerForm } from '../utils/validationUtils';
+
+import '../styles/Influencers/CreateInfluencer.css';
 
 function CreateInfluencer() {
   const navigate = useNavigate();
