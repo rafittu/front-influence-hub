@@ -44,6 +44,20 @@ export const getBrandByIdApi = async (accessToken, id) => {
   }
 };
 
+export const updateBrandApi = async (accessToken, id, data) => {
+  try {
+    const response = await axios.patch(`${baseUrl}/brand/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getInfluencersByBrandIdApi = async (accessToken, id, brandName) => {
   try {
     const response = await axios.get(`${baseUrl}/brand/influencers/by-brand`, {

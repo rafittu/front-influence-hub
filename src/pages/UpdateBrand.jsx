@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import NavigationBar from '../components/NavigationBar';
 import BrandForm from '../components/BrandForm';
 import Categories from '../utils/CategoryOptions';
-import { getBrandByIdApi, updateBrandApi } from '../api/BrandAPI';
+import { getBrandByIdApi, updateBrandApi } from '../api/BrandsAPI';
 
 function UpdateBrand() {
   const { id } = useParams();
