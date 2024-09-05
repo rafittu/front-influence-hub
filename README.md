@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# 😎 Front-end da aplicação InfluenceHub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+Este projeto é uma interface com o objetivo de simplificar a gestão de influenciadores e marcas. Com recursos que permitem criar, visualizar, atualizar e relacionar influenciadores e marcas de acordo com nichos, a plataforma visa aumentar a produtividade e a buscar o influenciador digital adequado para promover sua marca.
 
-### `npm start`
+Além disso, a aplicação realiza integração com o [servidor back-end](https://github.com/rafittu/back-influence-hub) e AWS S3 Bucket para armazenamento seguro de dados.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+## Tecnologias
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Foram utilizadas as seguintes tecnologias no desenvolvimento:
 
-### `npm run build`
+- **React**: Biblioteca JavaScript para criar interfaces de usuário;
+- **React Router Dom**: Biblioteca para roteamento na aplicação;
+- **React Hooks**: Funções que permitem ligar os recursos de state e ciclo de vida do React;
+- **Context API**: Gerenciamento de estado da aplicação;
+- **Prop Types**: Verificação de tipos para props em componentes React;
+- **AWS S3 Bucket**: Armazenamento de dados em nuvem;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Funcionalidades
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+O usuário conta com os seguintes serviços:
 
-### `npm run eject`
+- Cadastrar um administrador.
+- Login de administrador.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Cadastrar um novo influenciador.
+- Visualizar lista de influenciadores.
+- Filtrar influenciadores por:
+    - **cidade**;
+    - **categoria**;
+    - **alcance minimo**;
+    - **alcance máximo**;
+- Editar um influenciador.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Cadastrar uma marca.
+- Visualizar lista de marcas.
+- Visualisar influenciadores associados a marca.
+- Editar informações da marca.
 
-## Learn More
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Instalação
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
 
-### Code Splitting
+Clonando o repositório:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+$ git clone git@github.com:rafittu/front-influence-hub.git
+```
 
-### Analyzing the Bundle Size
+Instalando as dependências:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+$ cd front-influence-hub
+$ npm install
+```
 
-### Making a Progressive Web App
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Iniciando o app
 
-### Advanced Configuration
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Crie um arquivo `.env` na raiz do projeto e preencha as informações de acordo com o arquivo `.env.example` disponível.
 
-### Deployment
+Iniciando o servidor:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+# modo de desenvolvimento
+$ npm run start
+```
 
-### `npm run build` fails to minify
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Uso
+
+Com a interface front-end em execução, você deve iniciar o [servidor back-end](https://github.com/rafittu/back-influence-hub) e começar a explorar as funcionalidades!
+
+<br>
+
+![Lista de Influenciadores](public/influencers_list.png)
+<br>
+
+![Detalhes do Influenciador](public/influencer_details.png)
+<br>
+
+![Detalhes da Marca](public/brandInfluencer.png)
+
+
+<br>
+
+##
+
+<p align="right">
+  <a href="https://www.linkedin.com/in/rafittu/">Rafael Ribeiro 🚀</a>
+</p>
+
