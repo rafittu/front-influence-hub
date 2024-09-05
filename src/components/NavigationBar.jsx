@@ -41,9 +41,9 @@ function NavigationBar() {
           <li>Marcas</li>
         </Link>
 
-        <Link to="/brand-influencers" id="brand-influencers-link">
+        <span id="brand-influencers-link">
           <li>Gestão</li>
-        </Link>
+        </span>
       </ul>
     </nav>
   );
