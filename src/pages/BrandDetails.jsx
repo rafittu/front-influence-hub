@@ -4,6 +4,7 @@ import NavigationBar from '../components/NavigationBar';
 import { getBrandByIdApi, getInfluencersBrandApi } from '../api/BrandsAPI';
 
 import '../styles/BrandDetails/BrandDetails.css';
+import AssociateInfluencersModal from '../components/Brands/AssociateInfluencersModal';
 
 function BrandDetails() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ function BrandDetails() {
   const [brand, setBrand] = useState(null);
   const [influencers, setInfluencers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -63,7 +65,7 @@ function BrandDetails() {
   };
 
   const handleAddInfluence = () => {
-    navigate(`/brand/associate-influencer/${id}`);
+    setIsModalOpen(true);
   };
 
   const handleInfluencerClick = (influencerId) => {
@@ -124,6 +126,14 @@ function BrandDetails() {
               </>
               )}
             </div>
+          )}
+
+          {isModalOpen && (
+          <AssociateInfluencersModal
+            setIsModalOpen={setIsModalOpen}
+            brandNiches={brand.niches}
+            brandId={id}
+          />
           )}
         </section>
       )}
