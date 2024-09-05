@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
-import { getBrandByIdApi, getInfluencersByBrandIdApi } from '../api/BrandsAPI';
+import { getBrandByIdApi, getInfluencersBrandApi } from '../api/BrandsAPI';
 
 import '../styles/BrandDetails/BrandDetails.css';
 
@@ -22,7 +22,7 @@ function BrandDetails() {
       const brandData = await getBrandByIdApi(accessToken, id);
       setBrand(brandData);
 
-      const influencersData = await getInfluencersByBrandIdApi(accessToken, id, brandData.name);
+      const influencersData = await getInfluencersBrandApi(accessToken, brandData.name);
       setInfluencers(influencersData);
 
       setIsLoading(false);

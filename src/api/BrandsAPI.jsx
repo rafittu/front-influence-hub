@@ -58,7 +58,7 @@ export const updateBrandApi = async (accessToken, id, data) => {
   }
 };
 
-export const getInfluencersByBrandIdApi = async (accessToken, id, brandName) => {
+export const getInfluencersBrandApi = async (accessToken, brandName) => {
   try {
     const response = await axios.get(`${baseUrl}/brand/influencers/by-brand`, {
       headers: {
