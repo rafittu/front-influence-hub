@@ -37,6 +37,26 @@ function UpdateBrand() {
     fetchBrand();
   }, [id]);
 
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+
+    if (type === 'checkbox') {
+      const updatedNiches = formData.niches.includes(value)
+        ? formData.niches.filter((niche) => niche !== value)
+        : [...formData.niches, value];
+
+      setFormData((prev) => ({
+        ...prev,
+        niches: updatedNiches,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
   return (
     <main>
       <header>
