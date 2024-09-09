@@ -104,10 +104,19 @@ function UpdateInfluencer() {
   };
 
   const updateInfluencer = async () => {
-    delete formData.city;
-    delete formData.state;
+    const formDataToSend = new FormData();
 
-    const response = await updateInfluencerApi(accessToken, id, formData);
+    Object.keys(formData).forEach((key) => {
+      if (key === 'niches') {
+        formData[key].forEach((niche) => {
+          formDataToSend.append('niches[]', niche);
+        });
+      } else if (key !== 'city' && key !== 'state') {
+        formDataToSend.append(key, formData[key]);
+      }
+    });
+
+    const response = await updateInfluencerApi(accessToken, id, formDataToSend);
 
     if (response.status === 409) {
       setError('E-mail ou usuário já cadastrado.');

@@ -20,7 +20,7 @@ function CreateInfluencer() {
     email: '',
     username: '',
     reach: 0,
-    photo: '',
+    photo: null,
     zipCode: '',
     street: '',
     number: '',
@@ -72,11 +72,20 @@ function CreateInfluencer() {
   };
 
   const createInfluencer = async () => {
-    delete formData.city;
-    delete formData.state;
+    const formDataToSend = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      if (key === 'niches') {
+        formData[key].forEach((niche) => {
+          formDataToSend.append('niches[]', niche);
+        });
+      } else if (key !== 'city' && key !== 'state') {
+        formDataToSend.append(key, formData[key]);
+      }
+    });
 
     const accessToken = localStorage.getItem('metropole4');
-    const response = await createInfluencerApi(accessToken, formData);
+    const response = await createInfluencerApi(accessToken, formDataToSend);
 
     if (response.status === 409) {
       setError('E-mail ou usuário já cadastrado.');
