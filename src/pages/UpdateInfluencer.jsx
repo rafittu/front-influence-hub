@@ -19,6 +19,7 @@ function UpdateInfluencer() {
     email: '',
     username: '',
     reach: 0,
+    oldPhoto: '',
     photo: '',
     zipCode: '',
     street: '',
@@ -45,6 +46,7 @@ function UpdateInfluencer() {
           email: response.email,
           username: response.username,
           reach: response.reach,
+          oldPhoto: response.photo || '',
           photo: response.photo || '',
           zipCode: response.address.zipCode,
           street: response.address.street,
@@ -104,10 +106,19 @@ function UpdateInfluencer() {
   };
 
   const updateInfluencer = async () => {
-    delete formData.city;
-    delete formData.state;
+    const formDataToSend = new FormData();
 
-    const response = await updateInfluencerApi(accessToken, id, formData);
+    Object.keys(formData).forEach((key) => {
+      if (key === 'niches') {
+        formData[key].forEach((niche) => {
+          formDataToSend.append('niches[]', niche);
+        });
+      } else if (key !== 'city' && key !== 'state') {
+        formDataToSend.append(key, formData[key]);
+      }
+    });
+
+    const response = await updateInfluencerApi(accessToken, id, formDataToSend);
 
     if (response.status === 409) {
       setError('E-mail ou usuário já cadastrado.');

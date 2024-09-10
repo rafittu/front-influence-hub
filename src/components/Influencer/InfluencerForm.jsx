@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { deleteFileFromS3, uploadFileToS3 } from '../../aws/S3Utils';
 
 import '../../styles/Influencers/InfluencerForm.css';
 
@@ -10,54 +9,32 @@ function InfluencerForm({
 }) {
   const navigate = useNavigate();
 
-  const [temporaryPhoto, setTemporaryPhoto] = useState(null);
-  const [photoLoading, setPhotoLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const defaultPhoto = 'https://via.placeholder.com/150x150.png?text=Foto';
+
+  const photoPreview = formData.photo instanceof File
+    ? URL.createObjectURL(formData.photo)
+    : formData.photo || defaultPhoto;
 
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setTemporaryPhoto(file);
-      const temporaryUrl = URL.createObjectURL(file);
-      onChange({ target: { name: 'photo', value: temporaryUrl } });
+      onChange({ target: { name: 'photo', value: file } });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setPhotoLoading(true);
-
-    try {
-      if (temporaryPhoto) {
-        const bucketName = process.env.REACT_APP_INFLUENCER_PHOTO_BUCKET_NAME || '';
-
-        if (formData.photo && formData.photo !== defaultPhoto) {
-          await deleteFileFromS3(formData.photo, bucketName);
-        }
-
-        const photoUrl = await uploadFileToS3(temporaryPhoto, bucketName);
-        onChange({ target: { name: 'photo', value: photoUrl } });
-      }
-
-      onSubmit(e);
-    } catch (err) {
-      setError('Erro ao carregar foto.');
-    } finally {
-      setPhotoLoading(false);
-    }
+    onSubmit(e);
   };
 
   const handleCancel = () => {
-    setTemporaryPhoto(null);
     onChange({ target: { name: 'photo', value: null } });
     navigate(-1);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="influencer-form">
+    <form onSubmit={handleSubmit} encType="multipart/form-data" className="influencer-form">
       <label htmlFor="name" className="form-group">
         Nome:
         <input
@@ -111,13 +88,12 @@ function InfluencerForm({
       </label>
 
       <label htmlFor="photo" className="photo-upload form-group">
-        <div className="photo-container error-msg">
+        <div className="photo-container">
           <img
-            src={formData.photo || defaultPhoto}
+            src={photoPreview}
             alt="Foto do Influenciador"
             className="photo-preview"
           />
-          { error && <p>{error}</p>}
         </div>
         <div className="input-container">
           <input
@@ -126,9 +102,7 @@ function InfluencerForm({
             onChange={handlePhotoChange}
             accept="image/*"
             className="photo-input"
-            disabled={photoLoading}
           />
-          {photoLoading && <p>Carregando foto...</p>}
         </div>
       </label>
 
@@ -231,7 +205,7 @@ InfluencerForm.propTypes = {
     email: PropTypes.string,
     username: PropTypes.string,
     reach: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    photo: PropTypes.string,
+    photo: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     zipCode: PropTypes.string,
     street: PropTypes.string,
     number: PropTypes.string,
