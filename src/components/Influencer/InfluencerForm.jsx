@@ -11,6 +11,10 @@ function InfluencerForm({
 
   const defaultPhoto = 'https://via.placeholder.com/150x150.png?text=Foto';
 
+  const photoPreview = formData.photo instanceof File
+    ? URL.createObjectURL(formData.photo)
+    : formData.photo || defaultPhoto;
+
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -86,7 +90,7 @@ function InfluencerForm({
       <label htmlFor="photo" className="photo-upload form-group">
         <div className="photo-container">
           <img
-            src={formData.photo ? URL.createObjectURL(formData.photo) : defaultPhoto}
+            src={photoPreview}
             alt="Foto do Influenciador"
             className="photo-preview"
           />
