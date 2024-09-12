@@ -72,3 +72,18 @@ export const getInfluencersBrandApi = async (accessToken, brandName) => {
     return error;
   }
 };
+
+export const associateInfluencerBrandApi = async (accessToken, influencerId, brandId) => {
+  try {
+    const response = await axios.post(`${baseUrl}/brand/associate-influencer`, null, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: { influencerId, brandId },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
