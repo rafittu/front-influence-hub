@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import { getBrandByIdApi, getInfluencersBrandApi } from '../api/BrandsAPI';
+import AssociateInfluencersModal from '../components/Brands/AssociateInfluencersModal';
 
 import '../styles/Brands/BrandDetails.css';
 
@@ -13,6 +14,8 @@ function BrandDetails() {
   const [brand, setBrand] = useState(null);
   const [influencers, setInfluencers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateInfluencers, setUpdateInfluencers] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,7 +32,7 @@ function BrandDetails() {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, updateInfluencers]);
 
   // effect para rodar o carrousel automaticamente
   useEffect(() => {
@@ -63,7 +66,7 @@ function BrandDetails() {
   };
 
   const handleAddInfluence = () => {
-    navigate(`/brand/associate-influencer/${id}`);
+    setIsModalOpen(true);
   };
 
   const handleInfluencerClick = (influencerId) => {
@@ -112,7 +115,7 @@ function BrandDetails() {
 
           <div id="buttons-container">
             <button type="button" className="action-button" onClick={handleEditClick}>Editar</button>
-            <button type="button" className="action-button" onClick={handleAddInfluence} disabled>Associar Influencer</button>
+            <button type="button" className="action-button" onClick={handleAddInfluence}>Associar Influencer</button>
             <button type="button" className="action-button" disabled>Deletar</button>
           </div>
 
@@ -126,6 +129,15 @@ function BrandDetails() {
             </div>
           )}
         </section>
+      )}
+
+      {isModalOpen && (
+      <AssociateInfluencersModal
+        setIsModalOpen={setIsModalOpen}
+        onInfluencerAdded={() => setUpdateInfluencers((prev) => !prev)}
+        brandNiches={brand.niches}
+        brandId={id}
+      />
       )}
     </main>
   );
