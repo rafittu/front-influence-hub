@@ -47,6 +47,7 @@ O usuário conta com os seguintes serviços:
 
 - Cadastrar uma marca.
 - Visualizar lista de marcas.
+- Associar influenciadores a marca.
 - Visualisar influenciadores associados a marca.
 - Editar informações da marca.
 
