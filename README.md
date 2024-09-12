@@ -20,7 +20,6 @@ Foram utilizadas as seguintes tecnologias no desenvolvimento:
 - **React Hooks**: Funções que permitem ligar os recursos de state e ciclo de vida do React;
 - **Context API**: Gerenciamento de estado da aplicação;
 - **Prop Types**: Verificação de tipos para props em componentes React;
-- **AWS S3 Bucket**: Armazenamento de dados em nuvem;
 
 <br>
 
